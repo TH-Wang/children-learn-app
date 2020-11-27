@@ -2,6 +2,7 @@
 
 ### 目录结构
 
+```
 ├─api           # 接口管理
 ├─pages         # 页面
 ├─static        # 静态资源
@@ -12,10 +13,11 @@
 ├─pages.json    # 页面配置文件
 ├─package.json  # 项目依赖配置文件
 └─uni.scss      # 全局scss文件
+``` 
 
 ### 安装依赖
 
-```git
+```
 npm install
 ```
 
@@ -29,7 +31,7 @@ npm install
 
 配置后，**无需**在页面文件中 `import`
 
-```json
+```js
   {
     "path": "pages/index/index",
     "style": {
