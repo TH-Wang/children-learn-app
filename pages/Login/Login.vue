@@ -13,6 +13,7 @@
     </view>
     <!-- 提交按钮 -->
     <view class="submit">
+      <submit-button btnText="登录"></submit-button>
       <view class="register-button">没有账号？<text>立即注册</text></view>
     </view>
     <!-- 底部其他登录方式 -->
@@ -29,10 +30,12 @@
 
 <script>
 import Input from '@/components/Input'
+import SubmitButton from '@/components/Submit'
 
 export default {
   components: {
-    'custom-input': Input
+    'custom-input': Input,
+    'submit-button': SubmitButton
   }
 }
 </script>

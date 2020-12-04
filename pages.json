@@ -17,8 +17,13 @@
           "van-button": "/wxcomponents/vant/button/index"
         }
       }
+<<<<<<< Updated upstream
 		}
 	],
+=======
+    }
+  ],
+>>>>>>> Stashed changes
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
