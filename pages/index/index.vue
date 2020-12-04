@@ -22,11 +22,22 @@
 
 <script>
   import { mapState } from 'vuex'
-	
+  
 	export default {
 		data() {
 			return {
 				// title: 'Hello'
+				classMsg:{
+					classType:'读',
+					classTime:'9:30',
+					classToTime:'3分17秒'
+				},
+				isVip:true,
+				teacherMsg:{
+					name:'杨超越老师',
+					address:'巴黎圣母院',
+					timeLength:'50分钟'
+				}
 			}
 		},
 		computed: {
