@@ -3,10 +3,13 @@
 		{
 			"path": "pages/Login/Login",
 			"style": {
-        "navigationStyle": "custom",
-        "usingComponents": {
-          "van-icon": "/wxcomponents/vant/icon/index"
-        }
+        "navigationStyle": "custom"
+      }
+		},
+		{
+			"path": "pages/Sign/Sign",
+			"style": {
+        "navigationStyle": "custom"
       }
 		},
 		{
