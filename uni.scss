@@ -13,10 +13,25 @@
  */
 
 /* 全局混入 */
-@mixin font($size: 16rpx, $color: #333, $bold: 500) {
+/* 字体 */
+@mixin font($size: 16rpx, $color: #333, $bold: 500, $align: left) {
   font-size: $size;
   color: $color;
   font-weight: $bold;
+  text-align: $align;
+}
+/* 弹性布局 */
+@mixin flex($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+/* 定位 */
+@mixin position($type: absolute, $top: 0px, $left: 0px) {
+  position: $type;
+  top: $top;
+  left: $left;
 }
 
 /* 颜色变量 */
