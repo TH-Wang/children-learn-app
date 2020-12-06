@@ -21,7 +21,7 @@
 		<view class="icon-title">
 			<uni-list class='icon-list'>
 				<uni-list-item title="" note="" class='list-item'>
-					<image src="../../static/icon(4).png" mode=""></image>
+					<navigator url=""><image src="../../static/icon(4).png" mode=""></image></navigator>
 					<view class="ting">
 						听
 					</view>
@@ -30,7 +30,7 @@
 					</view>
 				</uni-list-item>
 				<uni-list-item title="" note="" class='list-item'>
-					<image src="../../static/icon(1).png" mode=""></image>
+					<navigator url=""><image src="../../static/icon(1).png" mode=""></image></navigator>
 					<view class="ting">
 						说
 					</view>
@@ -39,7 +39,7 @@
 					</view>
 				</uni-list-item>
 				<uni-list-item title="" note="" class='list-item'>
-					<image src="../../static/icon(2).png" mode=""></image>
+					<navigator url=""><image src="../../static/icon(2).png" mode=""></image></navigator>
 					<view class="ting">
 						读
 					</view>
@@ -48,7 +48,7 @@
 					</view>
 				</uni-list-item>
 				<uni-list-item title="" note="" class='list-item'>
-					<image src="../../static/icon(3).png" mode=""></image>
+					<navigator url=""><image src="../../static/icon(3).png" mode=""></image></navigator>
 					<view class="ting">
 						写
 					</view>
@@ -59,11 +59,14 @@
 			</uni-list>
 		</view>
 		<class-list :classMsg=classMsg :isVip=isVip :teacherMsg=teacherMsg></class-list>
+		<task-list :task=task :key='1'></task-list>
+		<task-list :task=task :key='2'></task-list>
 	</view>
 </template>
 
 <script>
 	import classList from "../../components/class.vue"
+	import taskList from "../../components/task.vue"
 	export default {
 		data() {
 			return {
@@ -84,6 +87,14 @@
 				autoplay: true,//是否自动播放
 				interval: 2000, //总共时长
 				duration: 500, //切换的时间
+				//任务信息
+				task:{
+					title:'今日任务',
+					isNewTask:true, //是否是今日任务
+					taskProgress: 0, //0-100的数值
+					taskName:'阅读课外必读书目p34第三段',
+					needTime:20 //需要的时间，最小分钟数
+				}
 			}
 		},
 		methods: {
@@ -91,51 +102,55 @@
 		},
 		components:{
 			classList:classList,
+			taskList:taskList,
 		}
 	}
+	// 页面动态改变fsize
+	document.documentElement.style.fontSize = 26.666667+'vw';
+	document.getElementsByTagName('body')[0].style['font-size'] = 16 + 'px';
 </script>
 
 <style lang="scss" scoped>
+
 .uni-padding-wrap{
 	background-color: #FB5953;
-	height: 495px;
-	border-radius: 0 0 50px 50px;
+	height: 2.475rem;
+	border-radius: 0 0 0.25rem 0.25rem;
 
 }
 .icon-title{
-	width: 704px;
-	height: 240px;
+	width: 3.52rem;
+	height: 1.2rem;
 	background: #FFFFFF;
-	box-shadow: 0px 10px 35px 3px rgba(180, 46, 42, 0.1);
-	border-radius: 20px;
+	box-shadow: 0rem 0.05rem 0.175rem 0.015rem rgba(180, 46, 42, 0.1);
+	border-radius: 0.1rem;
 	margin: 0 auto;
-	margin-top: -50px;
+	margin-top: -0.25rem;
 	
 	.icon-list{
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		padding: 26px 24px;
+		padding: 0.13rem 0.12rem;
 		.list-item{
 			text-align: center;
 			image{
-				width: 95px;
-				height: 95px;
+				width: 0.475rem;
+				height: 0.475rem;
 			}
 			.ting{
-				font-size: 32px;
+				font-size: 0.16rem;
 				font-family: 'PingFang';
 				font-weight: 500;
 				color: #333333;
-				margin: 12px 0px 5px 0 ;
+				margin: 0.06rem 0rem 0.025rem 0 ;
 			}
 			.ting-descrip{
-				font-size: 24px;
+				font-size: 0.12rem;
 				font-family: 'PingFang';
 				color: #666666;
 			}
 		}
 	}
 }
-
 </style>}
