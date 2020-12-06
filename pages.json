@@ -1,12 +1,12 @@
 {
 	"pages": [
-		{
+		{ // 登录页
 			"path": "pages/Login/Login",
 			"style": {
         "navigationStyle": "custom"
       }
 		},
-		{
+		{ // 注册页
 			"path": "pages/Sign/Sign",
 			"style": {
         "navigationStyle": "custom"
@@ -20,6 +20,18 @@
           "van-button": "/wxcomponents/vant/button/index"
         }
       }
+		},
+		{
+			"path": "pages/Study/Study",
+			"style": {
+        "navigationBarTitleText": "同步学"
+      }
+		},
+		{
+			"path": "pages/Mine/Mine",
+			"style": {
+        "navigationBarTitleText": "我的"
+      }
 		}
 	],
 	"globalStyle": {
@@ -30,5 +42,27 @@
     "usingComponents": {
       "van-toast": "/wxcomponents/vant/toast/index"
     }
-	}
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FB544F",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [{
+        "pagePath": "pages/Index/Index",
+        "iconPath": "static/index/home-active.png",
+        "selectedIconPath": "static/index/home-active.png",
+        "text": "首页"
+    }, {
+        "pagePath": "pages/Study/Study",
+        "iconPath": "static/index/video.png",
+        "selectedIconPath": "static/index/video.png",
+        "text": "同步学"
+    }, {
+      "pagePath": "pages/Mine/Mine",
+      "iconPath": "static/index/mine.png",
+      "selectedIconPath": "static/index/mine.png",
+      "text": "我的"
+    }]
+  }
 }
