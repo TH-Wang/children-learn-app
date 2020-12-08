@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="btn">
-			{{btnText}}
+		<view class="btn" @click="$emit('submit')">
+			<slot></slot>
 		</view>
 		<view class="text">
 			<text class="dark">{{darkWord}}</text>
@@ -13,7 +13,14 @@
 
 <script>
 	export default {
-		props:['btnText','darkWord','lightWord','isLogin'],
+    props: {
+      darkWord: String,
+      lightWord: String,
+      isLogin: {
+        type: Boolean,
+        default: true
+      }
+    },
 		data() {
 			return {
 				// isLogin 表示的是，是否是登录页面
@@ -21,18 +28,11 @@
 		},
 		methods:{
 			fnClick(){
-				console.log(this.isLogin);
-				if(this.isLogin){
-					uni.navigateTo({
-						url: '../sign/sign'
-					})
-				}else{
-					uni.navigateTo({
-						url: '../login/login'
-					})
-				}
-		}
-	},
+        const url = this.isLogin ? '/pages/Sign/Sign' : '/pages/Login/Login'
+        uni.navigateTo({ url })
+        console.log(url)
+		  }
+	  },
 	}
 	// 页面动态改变fsize
 	document.documentElement.style.fontSize = 26.666667+'vw';
@@ -58,7 +58,7 @@
 	font-size: 0.16rem;
 	color: #FDA2A0;
 	letter-spacing: 0.015rem;
-	 margin-top: 0.1rem;
+	margin-top: 0.12rem;
 	.dark{
 		font-family: "PingFang";
 		font-weight: 500;

@@ -2,10 +2,37 @@
 
 class Request {
   // 服务器地址
-  baseURL = ""
+  baseURL = "http://www.tsdxedu.com/api/v2"
   // 请求头
   header = {
     'Content-Type': 'application/json'
+  }
+
+  /** 自定义请求
+   * 
+   * @param {Object} config 请求的自定义配置，完全与 uni.request 相同
+   * 
+   * @returns {Proimse Object} 返回Promise对象
+   */
+  request (config) {
+    // 调用请求拦截器
+    const reqConfig = this.requestInterceptor(config)
+    if (reqConfig === false) {
+      console.warn(`请求被拦截：POST ${url}`)
+      return
+    }
+    // 发送请求
+    return new Proimse((resolve, reject) => {
+      uni.request({
+        ...reqConfig,
+        success (res) {
+          // 响应拦截器
+          const resultRes = this.responseInterceptor(res)
+          resolve(resultRes)
+        },
+        fail (err) { reject(err) }
+      })
+    })
   }
 
   /** POST请求
@@ -97,9 +124,11 @@ class Request {
   requestInterceptor (config) {
     // 如果终止请求
     // return false
+    uni.showToast({message: '服务器正在开小差，请稍后重试'})
+    return false
 
     // 正常进行
-    return config
+    // return config
   }
 
   /** 响应拦截器

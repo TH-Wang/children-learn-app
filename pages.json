@@ -10,7 +10,7 @@
       }
 		}
 	    ,{
-            "path" : "pages/login/login",
+            "path" : "pages/login/Login",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -19,7 +19,7 @@
             
         }
         ,{
-            "path" : "pages/index/index",
+            "path" : "pages/Index/Index",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -28,7 +28,7 @@
             
         }
         ,{
-            "path" : "pages/sign/sign",
+            "path" : "pages/sign/Sign",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
