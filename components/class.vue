@@ -116,6 +116,7 @@
 			border-radius: 0.1rem;
 			margin: auto;
 			margin-top: 0.12rem;
+			// background-image: url(../static/vip-bg.png);
 			.class-top{
 				display: flex;
 				flex-direction: row;
