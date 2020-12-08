@@ -1,45 +1,51 @@
 <template>
 	<view class="content">
-    <view>
-      <view class="text-area">
-        <text class="title">{{title}}</text>
-      </view>
-      <view @tap="onClick" class="text-area" style="margin-top:20px">
-        <text class="title">欢迎来到听说读写</text>
-      </view>
-    </view>
 
-    <van-button
-      type="info"
-      size="large"
-      style="margin-top:30rpx"
-      @click="onClick"
-    >了解更多</van-button>
+    <!-- banner -->
+    <view class="banner"></view>
 
-    <van-toast id="van-toast" />
+    <!-- 导航按钮 -->
+    <home-nav />
+
+    <!-- 打卡时间 -->
+    <div class="insist">
+      您已经坚持完成一年级任务<span>0</span>天
+    </div>
+    
+    <!-- 课程列表 -->
+    <class-item v-for="item in classList" :key="item.id" :record="item" />
+
+    <!-- 今日任务 -->
+    <home-header>今日任务</home-header>
+    <task-item :task="taskList[0]" />
+    <task-item :task="taskList[1]" />
+
+    <!-- 本周任务 -->
+    <home-header>本周任务</home-header>
+    <task-item :task="taskList[2]" />
+    <task-item :task="taskList[3]" />
   </view>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import HomeNav from '@/components/HomeNav'
+  import Class from '@/components/Class'
+  import Task from '@/components/Task'
+  import HomeHeader from '@/components/HomeHeader'
+  import { classList, taskList } from './data'
   
 	export default {
-		data() {
-			return {
-				// title: 'Hello'
-				classMsg:{
-					classType:'读',
-					classTime:'9:30',
-					classToTime:'3分17秒'
-				},
-				isVip:true,
-				teacherMsg:{
-					name:'杨超越老师',
-					address:'巴黎圣母院',
-					timeLength:'50分钟'
-				}
-			}
-		},
+    components: {
+      'home-nav': HomeNav,
+      'class-item': Class,
+      'home-header': HomeHeader,
+      'task-item': Task
+    },
+		data: () => ({
+      classList: classList,
+      taskList: taskList
+    }),
 		computed: {
 			...mapState(['title'])
     },
@@ -58,38 +64,23 @@
 </script>
 
 <style lang="scss">
-	.content {
-    width: 100%;
-    height: calc(100vh - 88rpx);
-    padding: 200rpx 40rpx 150rpx 40rpx;
-    box-sizing: border-box;
-		display: flex;
-		flex-direction: column;
-		align-items: space-between;
-		justify-content: space-between;
-	}
+.banner{
+  height: 2rem;
+  background-color: #FB544F;
+}
+.insist{
+  width: 100%;
+  height: .40rem;
+  line-height: .36rem;
+  padding: 0 .16rem;
+  box-sizing: border-box;
+  margin-top: .12rem;
+  background-color: rgba(255, 235, 234, 1);
+  @include font(.16rem, #333333);
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+  span{
+    @include font(.25rem, #FB544F);
+    margin: 0 2px;
   }
-  
-  .custom-title{
-    margin-top: 20rpx;
-    @include font(36rpx);
-  }
+}
 </style>

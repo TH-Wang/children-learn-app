@@ -43,7 +43,7 @@ class Request {
    * 
    * @returns {Proimse Object} 返回Promise对象
    */
-  post (url, data, parmas) {
+  post (url, data, params) {
     const _this_ = this
 
     // 请求配置
@@ -64,11 +64,12 @@ class Request {
 
     // 发送请求
     return new Promise((resolve, reject) => {
+      const _this_ = this
       uni.request({
         ...reqConfig,
         success (res) {
           // 响应拦截器
-          const resultRes = this.responseInterceptor(res)
+          const resultRes = _this_.responseInterceptor(res)
           resolve(resultRes)
         },
         fail (err) { reject(err) }
@@ -103,11 +104,12 @@ class Request {
 
     // 发送请求
     return new Promise((resolve, reject) => {
+      const _this_ = this
       uni.request({
         ...config,
         success (res) {
           // 响应拦截器
-          const resultRes = this.responseInterceptor(res)
+          const resultRes = _this_.responseInterceptor(res)
           resolve(resultRes)
         },
         fail (err) { reject(err) }
@@ -124,11 +126,11 @@ class Request {
   requestInterceptor (config) {
     // 如果终止请求
     // return false
-    uni.showToast({message: '服务器正在开小差，请稍后重试'})
-    return false
+    // uni.showToast({message: '服务器正在开小差，请稍后重试'})
+    // return false
 
     // 正常进行
-    // return config
+    return config
   }
 
   /** 响应拦截器

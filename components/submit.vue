@@ -30,7 +30,6 @@
 			fnClick(){
         const url = this.isLogin ? '/pages/Sign/Sign' : '/pages/Login/Login'
         uni.navigateTo({ url })
-        console.log(url)
 		  }
 	  },
 	}

@@ -19,6 +19,6 @@ html{
   font-size: 26.666667vw;
 }
 body{
-  font-size: .32rem;
+  font-size: .16rem;
 }
 </style>

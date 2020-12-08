@@ -73,7 +73,7 @@ export default {
     // 校验函数
     validate () {
       // 如果当前字段不需要做校验，则跳过
-      if (this.rules.length === 0) return true
+      if (!this.rules || this.rules.length === 0) return true
       // 输入框的值
       const value = this.value
       const len = this.rules.length

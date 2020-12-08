@@ -2,10 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import Toast from './wxcomponents/vant/toast/toast'
+import asyncUni from './utils/asyncUni'
 
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 Vue.prototype.$toast = Toast
+Vue.prototype.$uni = asyncUni
 
 App.mpType = 'app'
 

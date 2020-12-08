@@ -1,218 +1,218 @@
 <template>
-	<view>
-		<view class="class-wap">
-			<view class="class-top">
-				<view class="left">
-				 <view class="left-top">
-					 <view class="class-type">{{classMsg.classType}}</view>
-					 <view class="class-time">上课时间</view>
-				 </view>
-				 <view class="left-bottom">
-					{{classMsg.classTime}}
-				 </view>
-			</view> 
-			<view class="right">
-				<view class="right-top">
-					<view class="isVipClass" v-if="isVip">
-						距离上课时间还有{{classMsg.classToTime}} 
-					</view>
-					<view class="noVipClass" v-if="!isVip">
-						课程暂未开始
-					</view>
-				</view>
-				<view class="right-bottom">
-					<!-- 此处为vip的情况 非vip的情况为-->
-					<view class="goToClass" v-if="isVip">
-					  进入教室	
-					</view>
-					 <view class="goTo" v-if="!isVip"><navigator url="">></navigator></view>
-				</view>
-			</view> 
-			</view>
-			
-			<view class="class-bottom">
-				<view class="teacher-img">
-					<image src="../static/vip-bg.png" mode=""></image>
-				</view>
-				 {{teacherMsg.name}}<text class="line">|</text>{{teacherMsg.address}}<text class="line">|</text>{{teacherMsg.timeLength}}
-			</view> 
-		</view>
-	</view>
+  <view :class="`class-wap-${record.isVip ? 'vip' : 'normal'}`">
+    <view class="class-top">
+      <view class="main-info">
+        <!-- 课程类型 -->
+        <view class="left-top">
+          <view :class="[`tag-${tagType[record.type].name}`, `${record.isVip ? 'tag-vip' : ''}`]">
+            {{tagType[record.type].text}}
+          </view>
+          <view class="class-time">上课时间</view>
+        </view>
+        <!-- 距离上课时间 -->
+        <view class="right-top">
+          <view class="isVipClass" v-if="record.isVip">
+            距离上课时间还有{{record.distanceTime}}
+          </view>
+          <view class="noVipClass" v-else>课程暂未开始</view>
+        </view>
+      </view>
+      <view class="time-info">
+        <!-- 上课时间 -->
+        <view class="left-bottom">{{record.beginTime}}</view>
+        <!-- 进入教师按钮 -->
+        <view class="right-bottom">
+          <view class="goToClass" v-if="record.isVip">进入教室</view>
+          <view class="goTo" v-else>
+            <navigator url=""><van-icon name="arrow" size=".16rem" /></navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部信息 -->
+    <view class="class-bottom">
+      <!-- 头像 -->
+      <view class="teacher-img">
+        <image src="@/static/index/listen.png" mode=""></image>
+      </view>
+      {{record.teacher}}
+      <text class="line">|</text>
+      {{record.address}}
+      <text class="line">|</text>
+      {{record.timeLength}}
+    </view>
+  </view>
+  </view>
 </template>
 
 <script>
-	export default {
-		props:['classMsg','teacherMsg','isVip'],
-		data() {
-			return {
-				
-			}
-		},
+import Icon from '@/wxcomponents/vant/icon/index.vue'
 
-	methods: {
-	  
-	},
-	 mounted() {
-		 // 非Vip的classType样式的变换
-		 let classTypeCss = document.getElementsByClassName('class-type')[0];//课程类型的样式
-		  switch (this.classMsg.classType) {
-		      case '听':
-		          classTypeCss.style.background = '#FFFFFF';
-		          classTypeCss.style.color = '#FB5953'; //未设置
-		          break;
-		      case '说':
-		          classTypeCss.style.background = '#FFFFFF';
-		          classTypeCss.style.color = '#FB5953'; //未设置
-		           break;
-		      case '读':
-		 		 console.log(classTypeCss);
-		          classTypeCss.style.background = '#FFCCC2';
-		          classTypeCss.style.color = '#FB5953';
-		           break;
-		      case '写':
-		          classTypeCss.style.background = '#FFF1C2';
-		          classTypeCss.style.color = '#FF9000';
-		           break;
-		 		  
-		 			  }
-			 // 是否是Vip
-			if(this.isVip){
-				console.log(document.getElementsByClassName('class-bottom')[0].style.color);
-				let teacherMsgCss = document.getElementsByClassName('class-bottom')[0]; //老师信息的字体样式
-				let classTypeCss = document.getElementsByClassName('class-type')[0];//课程类型的样式
-				let  classWapCss = document.getElementsByClassName('class-wap')[0];//整体的框
-				let  classTimeCss = document.getElementsByClassName('class-time')[0];//上课时间
-				let  classLeftBootCss = document.getElementsByClassName('left-bottom')[0];//9.30
-				console.log(classWapCss);
-				classWapCss.style.backgroundImage = 'url(../static/vip-bg.png)';
-				classWapCss.style.backgroundSize = '100%';
-				classWapCss.style.color='#FFFFFF';
-				classTypeCss.style.background = '#FFFFFF';
-				classTypeCss.style.color = '#FB5953';
-				classTimeCss.style.color='#FFFFFF';
-				classLeftBootCss.style.color='#FFFFFF';
-				teacherMsgCss.style.color='#FFFFFF';
-			}
-		  }
-		  
-		 }
-		
-	// 页面动态改变fsize
-	document.documentElement.style.fontSize = 26.666667+'vw';
-	document.getElementsByTagName('body')[0].style['font-size'] = 16 + 'px';
+export default {
+  components: {
+    'van-icon': Icon
+  },
+  props: {
+    record: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  data: () => ({
+    // 课程类型
+    tagType: {
+      1: { name: 'listen', text: '听' },
+      2: { name: 'speak', text: '说' },
+      3: { name: 'read', text: '读' },
+      4: { name: 'write', text: '写' }
+    }
+  })
+
+}
 </script>
 
 <style lang="scss" scoped>
-	*{
-			margin: 0;
-			padding: 0;
-		}
-		.class-wap{
-			font-family:'PingFang';
-			width: 3.43rem;
-			height: 1.42rem;
-			background-color:#FAFAFA;
-			/* #FAFAFA */
-			border-radius: 0.1rem;
-			margin: auto;
-			margin-top: 0.12rem;
-			// background-image: url(../static/vip-bg.png);
-			.class-top{
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				padding: 0.125rem 0.14rem;
-			.left{
-				.left-top{
-					margin-bottom: 0.125rem;
-					.class-type{
-						display: inline-block;
-						width: 0.42rem;
-						height: 0.19rem;
-						line-height: 0.19rem;
-						background: #FFF1C2;
-						box-shadow: 0rem 0.03rem 0.045rem 0.005rem rgba(180, 46, 42, 0.1);
-						border-radius: 0.02rem;
-						color: #FF9000;
-						font-weight: bold;
-						font-size: 0.11rem;
-						text-align: center;
-						margin: auto 0.05rem auto 0;
-					}
-					.class-time{
-						display: inline-block;
-						font-size: 0.15rem;
-						font-family: "PingFang";
-						color: #666666;
-					}
-				}
-				.left-bottom{
-						width: 0.81rem;
-						height: 0.24rem;
-						font-size: 0.32rem;
-						font-family: "PingFang";
-						font-weight: bold;
-						color: #666666;
-						margin-bottom: 0.15rem;
-				}
-			}
-			.right{
-				 .right-top{
-					.isVipClass{
-						font-size: 0.12rem;
-						font-family: 'PingFang';
-						font-weight: bold;
-						color: #FFFFFF;
-					} 
-					.noVipClass{
-						color: #999999;
-						font-size: 0.12rem;
-						font-weight: bold;
-					}
-				 }
-				 .right-bottom{
-					.goToClass{
-						width: 0.75rem;
-						height: 0.28rem;
-						background: #FFFFFF;
-						border-radius: 0.14rem;
-						line-height: 0.28rem;
-						text-align: center;
-						color: #FB554F;
-						font-size: 0.13rem;
-					  font-weight: bold;
-						margin: 0.26rem 0 0 auto;
-					}
-					.goTo{
-						color: #999999;
-						font-size: 0.13rem;
-						font-weight: bold;
-						margin: 0.26rem 0 0 auto;
-						text-align: end;
-					}
-				 }
-			}
-			}
-			.class-bottom{
-				display: flex;
-				font-size: 0.13rem;
-				color: #999999;
-				.teacher-img{
-					width: 0.24rem;
-					height: 0.24rem;
-					background: #E1E1E1;
-					border-radius: 50%;
-					overflow: hidden;
-					margin: 0 0.12rem 0 0.14rem;
-					image{
-						width: 100%;
-						height: 100%;
-					}
-				}
-				.line{
-					padding: 0 0.12rem;
-				}
-			}
-		}
-	
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.class-wap {
+  font-family: "PingFang";
+  width: 3.43rem;
+  height: 1.42rem;
+  border-radius: 0.1rem;
+  margin: .12rem .16rem 0 .16rem;
+  padding-bottom: .08rem;
+}
+// 普通课程
+.class-wap-normal{
+  @extend .class-wap;
+  background-color: #FAFAFA;
+  color: #999999;
+
+  .left-bottom, .class-time{ color: #666666 } // 课程时间
+}
+// vip课程
+.class-wap-vip{
+  @extend .class-wap;
+  color: #FFFFFF;
+  background-image: url(~static/vip-bg.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.class-top {
+  padding: 0.125rem 0.14rem;
+
+  .main-info{
+    @include flex(space-between, center);
+    margin-bottom: 0.125rem;
+
+    .left-top {
+      @include flex(flex-start, center);
+
+      // 标签
+      .tag {
+        width: 0.42rem;
+        height: 0.19rem;
+        line-height: 0.19rem;
+        box-shadow: 0rem 0.03rem 0.045rem 0.005rem rgba(180, 46, 42, 0.1);
+        border-radius: 0.02rem;
+        font-weight: bold;
+        font-size: 0.11rem;
+        text-align: center;
+        margin-right: .05rem;
+
+        &-vip{
+          color: #FB5953 !important;
+          background-color: #FFFFFF !important;
+        }
+        
+        // 听
+        &-listen{
+          @extend .tag;
+          color: #FB5953;
+          background-color: #FFCCC2;
+        }
+        // 说
+        &-speak{
+          @extend .tag;
+          color: #FF9000;
+          background-color: #FFF1C2;
+        }
+        // 读
+        &-read{
+          @extend .tag;
+          color: #FB5953;
+          background-color: #FFCCC2;
+        }
+        // 写
+        &-write{
+          @extend .tag;
+          color: #FF9000;
+          background-color: #FFF1C2;
+        }
+      }
+      
+      // 上课时间标题
+      .class-time {
+        font-size: 0.15rem;
+      }
+    }
+    .right-top {
+      font-size: 0.12rem;
+    }
+  }
+
+  .time-info {
+    @include flex(space-between, center);
+
+    .left-bottom {
+      font-size: 0.32rem;
+      // font-weight: bold;
+    }
+
+    .right-bottom {
+
+      .goToClass {
+        width: 0.75rem;
+        height: 0.28rem;
+        background-color: #ffffff;
+        color: #FB554F;
+        border-radius: 0.14rem;
+        line-height: 0.28rem;
+        text-align: center;
+        font-size: 0.13rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.class-bottom {
+  display: flex;
+  align-items: center;
+  font-size: 0.13rem;
+
+  .teacher-img {
+    width: 0.24rem;
+    height: 0.24rem;
+    background: #e1e1e1;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 0.12rem 0 0.14rem;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .line {
+    padding: 0 0.12rem;
+    font-size: .1rem;
+    line-height: .16rem;
+  }
+}
 </style>
