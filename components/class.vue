@@ -43,7 +43,6 @@
       {{record.timeLength}}
     </view>
   </view>
-  </view>
 </template>
 
 <script>

@@ -11,6 +11,14 @@
     <div class="insist">
       您已经坚持完成一年级任务<span>0</span>天
     </div>
+		
+		<!-- 日历 -->
+    <view class="calendar">
+      <uni-calendar 
+        :insert="true"
+        @change="handleCalendarChange"
+      />
+    </view>
     
     <!-- 课程列表 -->
     <class-item v-for="item in classList" :key="item.id" :record="item" />
@@ -33,10 +41,12 @@
   import Class from '@/components/Class'
   import Task from '@/components/Task'
   import HomeHeader from '@/components/HomeHeader'
+	import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
   import { classList, taskList } from './data'
   
 	export default {
     components: {
+			'uni-calendar': uniCalendar,
       'home-nav': HomeNav,
       'class-item': Class,
       'home-header': HomeHeader,
@@ -55,6 +65,9 @@
           message: '正在努力开发中...',
           position: 'bottom'
         })
+      },
+      handleCalendarChange (e) {
+        console.log(e)
       }
     },
 		onLoad() {
@@ -82,5 +95,9 @@
     @include font(.25rem, #FB544F);
     margin: 0 2px;
   }
+}
+.calendar{
+  width: 3.45rem;
+  margin: 0 auto;
 }
 </style>

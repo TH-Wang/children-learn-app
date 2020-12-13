@@ -29,13 +29,11 @@
         default: () => ({})
       }
     },
-		data() {
-			return {
-				isShow:false,
-				isSuccess:false,
-				isNoStart:true
-			};
-    },
+		data: () => ({
+      isShow:false,
+      isSuccess:false,
+      isNoStart:true
+    }),
     computed: {
       // 任务状态
       status () {

@@ -14,7 +14,7 @@
         ref="mobile"
         type="tel"
         max-length="11"
-        class="phone-input"
+        class="gap-bottom"
         placeholder="输入用户名/手机号"
       />
       <custom-input
@@ -28,18 +28,33 @@
 
     <!-- 手机验证码登录 -->
     <view class="main" v-show="mode === 'mobile'">
+
       <!-- 手机号码 -->
       <custom-input
         v-model="form.mobile"
         ref="mobile"
         type="tel"
         max-length="11"
-        class="phone-input"
+        class="gap-bottom"
         placeholder="输入手机号"
         :rules="phoneRules"
       ><template v-slot:prefix>
         <text style="margin-right:.10rem">+86</text>
       </template></custom-input>
+
+      <!-- 图形验证码 -->
+      <custom-input
+        v-model="form.image_code"
+        ref="code"
+        type="tel"
+        max-length="4"
+        placeholder="输入图形验证码"
+        class="gap-bottom"
+        :rules="imageCodeRules"
+      ><template v-slot:float-suffix>
+        <image class="code-image" :src="imageCodeInfo.img" @click="reqCodeImage" />
+      </template></custom-input>
+
       <!-- 验证码 -->
       <custom-input
         v-model="form.mobile_code"
@@ -47,7 +62,7 @@
         type="tel"
         max-length="6"
         placeholder="输入验证码"
-        :rules="codeRules"
+        :rules="mobileCodeRules"
       ><template v-slot:suffix>
         <text style="margin-left:.10rem" @click="reqGetCode">{{verifyCode.text}}</text>
       </template></custom-input>
@@ -96,11 +111,19 @@ export default {
       password: '',
       mobile_code: ''
     },
+    // 图形验证码的图片路径和key
+    imageCodeInfo: {
+      img: '',
+      key: ''
+    },
     phoneRules: [
       {required: true, message: '请输入手机号码'},
       {pattern: /^\d{11}$/g, message: '请输入合理的手机号码'}
     ],
-    codeRules: [
+    imageCodeRules: [
+      {required: true, message: '请输入图形验证码'}
+    ],
+    mobileCodeRules: [
       {required: true, message: '请输入验证码'},
       {pattern: /^\d{6}$/g, message: '验证码只能为6位数字'}
     ]
@@ -114,10 +137,23 @@ export default {
         uni.showToast({title: errMsg, icon: 'none'})
         return
       }
+      // 校验图形验证码是否正确
+      if(this.form.image_code !== this.imageCodeInfo.code) {
+        uni.showToast({ title: '图形验证码不正确' })
+        return
+      }
       // 开始倒计时
       await this.changeCodeStatus()
+
       // 执行请求
-      const res = await authApi.captchaSms(this.form.mobile)
+      const { mobile, image_code } = this.form
+      const { key } = this.imageCodeInfo
+      const res = await authApi.captchaSms({
+        mobile,
+        image_captcha: image_code,
+        image_key: key,
+        scene: 'login'
+      })
       if (isEmpty(res.data.data)) {
         this.$uni.showModal({
           title: '获取失败',
@@ -155,14 +191,13 @@ export default {
 
       // 如果登录失败
       if (isEmpty(res.data.data)) {
-        const result = await this.$uni.showModal({
+        await this.$uni.showModal({
           title: '登录失败',
-          content: res.data.message,
-          confirmText: '前往首页',
-          cancelText: '继续登录'
+          content: res.data.message
         })
-        if (result.confirm) uni.switchTab({url: '/pages/Index/Index'})
+        return
       }
+      uni.switchTab({url: '/pages/Index/Index'})
     }
   }
 }

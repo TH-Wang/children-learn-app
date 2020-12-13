@@ -5,6 +5,7 @@ export default {
   loginByPassword,
   loginByMobile,
   registerBySms,
+  captchaImage,
   captchaSms
 }
 
@@ -23,7 +24,12 @@ function registerBySms (data) {
   return http.post('/register/sms', data)
 }
 
+// 获取图形验证码
+function captchaImage () {
+  return http.post('/captcha/image')
+}
+
 // 获取短信验证码
-function captchaSms (mobile) {
-  return http.post('/captcha/sms', { mobile })
+function captchaSms (data) {
+  return http.post('/captcha/sms', data)
 }

@@ -20,6 +20,7 @@
       />
     </view>
     <div class="suffix"><slot name="suffix" /></div>
+    <div class="float-suffix"><slot name="float-suffix" /></div>
   </view>
 </template>
 
@@ -107,6 +108,7 @@ export default {
   background-color: #FC7470;
   padding: 0 .24rem;
   box-sizing: border-box;
+  position: relative;
   @include flex(space-between, center);
 
   .main{
@@ -125,5 +127,12 @@ export default {
 .prefix, .suffix{
   @include font(.15rem, #FFFFFF);
   text-align: center;
+}
+
+// 后缀覆盖插槽
+.float-suffix{
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 </style>
