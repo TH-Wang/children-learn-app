@@ -26,7 +26,7 @@ function registerBySms (data) {
 
 // 获取图形验证码
 function captchaImage () {
-  return http.post('/captcha/image')
+  return http.get('/captcha/image')
 }
 
 // 获取短信验证码
