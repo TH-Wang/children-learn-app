@@ -3,7 +3,7 @@
 		<view class="list-item">
 			<!-- 课程图片 -->
 			<view class="item-img">
-				<image src="../static/logo.png" mode=""></image>
+				<image :src="listData.img" mode=""></image>
 			</view>
 			<!-- 课程内容 -->
 			<view class="item-content">
@@ -16,7 +16,7 @@
 							{{listData.teacher}}
 						</view>
 						<view class="t-progress">
-							<image src="../pages/pen.png" mode=""></image>
+							<image src="../static/listen/pen.png" mode=""></image>
 							<text v-if="listData.isTbx">{{listData.progress||0}}</text>
 							<text v-else>{{listData.finishNumber||0}}/{{listData.sumNumber||0}}</text>
 						</view>
@@ -28,9 +28,9 @@
 						<view class="b-littWords" v-else>
 							需要掌握{{listData.sumNumber}}个词语
 						</view>
-						<view :class="progress.className">
+						<view :class="progress.className + ' btn-common'" >
 							<!-- <image src="../pages/dianzan.png" mode=""></image> -->
-							<text>{{progress.btnText}}</text>
+							<text class="test-common">{{progress.btnText}}</text>
 						</view>
 					</view>
 				</view>
@@ -104,6 +104,7 @@
 }
 .commonList-page {
 		font-family: "PingFang";
+		margin-top:  0.075rem;
 		.list-item {
 			width: 3.43rem;
 			height: 1.21rem;
@@ -118,10 +119,11 @@
 				position: absolute;
 				left: 0;
 				top: 0;
-
+				border-radius: 0.05rem;
 				image {
 					width: 100%;
 					height: 100%;
+					border-radius: 0.05rem;
 				}
 			}
 
@@ -184,7 +186,7 @@
 							display: flex;
 							justify-content: space-around;
 							align-items: center;
-							background-image: url(../pages/dianzan.png);
+							background-image: url(../static/listen/dianzan.png);
 							background-size: 0.225rem 0.175rem;
 							background-repeat: no-repeat;
 							background-position: 0.1rem 0.005rem;
@@ -212,6 +214,8 @@
 							text-align: center;
 							text{
 								color: #FFFFFF;
+								position: relative;
+								top: -3px;
 							}
 						}
 					}	

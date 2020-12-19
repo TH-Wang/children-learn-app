@@ -37,7 +37,43 @@
             "path" : "pages/listen/listen",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "听列表页",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/Myclass/Myclass",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的课程",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/Mistakes/Mistakes",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "错题集",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/MyCollect/MyCollect",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的收藏",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/MsgCenter/MsgCenter",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息中心",
                 "enablePullDownRefresh": false
             }
             

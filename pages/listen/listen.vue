@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import {commonList} from '../index/data';
+	import {commonList} from '../Index/data.js';
 	import commonListItem from '../../components/commonList.vue';
 	export default {
 		data() {

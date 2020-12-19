@@ -65,13 +65,15 @@ export const commonList = [
   	sumNumber:10,
     finishNumber:0,
   	classTime:"20分32秒",
+		img:''
   },
   {
     isTbx: true,
     className: '我和大叔有个约定',
     teacher: '同步学',
     progress:'100%',
-    classTime:"15分32秒"
+    classTime:"15分32秒",
+		img:''
   },
   
 ]
