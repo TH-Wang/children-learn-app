@@ -24,7 +24,7 @@
 		{
 			"path": "pages/Study/Study",
 			"style": {
-        "navigationBarTitleText": "同步学"
+        "navigationStyle": "custom"
       }
 		},
 		{

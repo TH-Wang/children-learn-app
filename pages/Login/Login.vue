@@ -23,7 +23,7 @@
         type="password"
         placeholder="输入密码"
       />
-      <view class="suffix" @click="mode = 'mobile'">验证码登录</view>
+      <view class="suffix" @click="handleSwitchMode('mobile')">验证码登录</view>
     </view>
 
     <!-- 手机验证码登录 -->
@@ -109,7 +109,8 @@ export default {
     form: {
       mobile: '',
       password: '',
-      mobile_code: ''
+      mobile_code: '',
+      image_code: ''
     },
     // 图形验证码的图片路径和key
     imageCodeInfo: {
@@ -129,22 +130,24 @@ export default {
     ]
   }),
   methods: {
+    // 切换登录方式
+    handleSwitchMode (mode) {
+      if (mode === 'mobile') {
+        this.mode = mode
+        // 如果没有图形验证码则请求
+        if (isEmpty(this.imageCodeInfo.img)) this.reqCodeImage()
+      }
+    },
+    // 请求图形验证码
+    async reqCodeImage () {
+      const res = await authApi.captchaImage()
+      this.imageCodeInfo = res.data.data
+    },
     // 请求短信验证码
     async reqGetCode () {
       // 校验手机号码是否符合规范
-      const { err, errMsg } = this.$refs.mobile.validate()
-      if (err) {
-        uni.showToast({title: errMsg, icon: 'none'})
-        return
-      }
-      // 校验图形验证码是否正确
-      if(this.form.image_code !== this.imageCodeInfo.code) {
-        uni.showToast({ title: '图形验证码不正确' })
-        return
-      }
-      // 开始倒计时
-      await this.changeCodeStatus()
-
+      const validateResult = this.validate(['mobile', 'image_code'])
+      if (!validateResult) return
       // 执行请求
       const { mobile, image_code } = this.form
       const { key } = this.imageCodeInfo
@@ -154,13 +157,19 @@ export default {
         image_key: key,
         scene: 'login'
       })
+      // 如果获取失败
       if (isEmpty(res.data.data)) {
+        // 刷新验证码
+        this.reqCodeImage()
         this.$uni.showModal({
           title: '获取失败',
           content: res.data.message,
           showCancel: false
         })
+        return
       }
+      // 如果获取失败，则开始倒计时
+      await this.changeCodeStatus()
     },
     // 提交
     async handleSubmit () {
@@ -169,13 +178,9 @@ export default {
         ? ['mobile', 'mobile_code']
         : ['mobile', 'password']
       // 进行校验
-      for (let i = 0; i < valid.length; i++) {
-        const { err, errMsg } = this.$refs[valid[i]].validate()
-        if(err){
-          uni.showToast({title: errMsg, icon: 'none'})
-          return
-        }
-      }
+      const validateResult = this.validate(valid)
+      if (!validateResult) return
+
       // 获取参数
       const { mobile, password, mobile_code } = this.form
       const data = this.mode === 'mobile'
@@ -198,6 +203,17 @@ export default {
         return
       }
       uni.switchTab({url: '/pages/Index/Index'})
+    },
+    // 校验
+    validate (valid) {
+      for (let i = 0; i < valid.length; i++) {
+        const { err, errMsg } = this.$refs[valid[i]].validate()
+        if(err){
+          uni.showToast({title: errMsg, icon: 'none'})
+          return false
+        }
+      }
+      return true
     }
   }
 }

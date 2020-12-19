@@ -32,7 +32,7 @@
       <!-- 图形验证码 -->
       <custom-input
         v-model="form.image_code"
-        ref="code"
+        ref="image_code"
         type="tel"
         max-length="4"
         placeholder="输入图形验证码"
@@ -121,20 +121,15 @@ export default {
     // 请求图形验证码
     async reqCodeImage () {
       const res = await authApi.captchaImage()
-      this.imageCodeInfo = {...res.data.data, code: res.data.code}
+      this.imageCodeInfo = res.data.data
     },
     // 请求短信验证码
     async reqGetCode () {
       // 校验手机号码和图形验证码
-      this.validate(['mobile', 'image_code'])
-      // 校验图形验证码是否正确
-      if(this.form.image_code !== this.imageCodeInfo.code) {
-        uni.showToast({ title: '图形验证码不正确' })
-        return
-      }
+      const validateResult = this.validate(['mobile', 'image_code'])
+      if (!validateResult) return
 
-      // 开始倒计时
-      await this.changeCodeStatus()
+      // 如果校验成功
       const { mobile, image_code } = this.form
       const { key } = this.imageCodeInfo
       // 执行请求
@@ -144,18 +139,26 @@ export default {
         image_key: key,
         scene: 'register'
       })
+      // 如果获取失败
       if (isEmpty(res.data.data)) {
+        // 刷新验证码
+        this.reqCodeImage()
         this.$uni.showModal({
           title: '获取失败',
-          content: res.data.message
+          content: res.data.message,
+          showCancel: false
         })
+        return
       }
+      // 如果获取成功，则开始倒计时
+      await this.changeCodeStatus()
     },
     // 提交注册
     async handleSubmit () {
       // 表单值的格式验证
       const validList = ['mobile', 'image_code', 'mobile_code', 'password']
-      this.validate(validList)
+      const validateResult = this.validate(validList)
+      if (!validateResult) return
       // 发送提交请求
       const res = await authApi.registerBySms(this.form)
       // 如果登录失败
