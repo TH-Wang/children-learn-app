@@ -1,11 +1,13 @@
 <template>
 	<view class="msgCenter-page">
 		<msgList v-for="(item,index) in msgList" :key="index" :listItem='item'></msgList>
+		<navbar :backArrow='true' @click-right='clickAll'><text slot="right">全部已读</text></navbar>
 	</view>
 </template>
 
 <script>
 	import msgList from "@/components/msgList.vue"
+	import navbar from "@/components/NavBar.vue"
 	export default {
 		data() {
 			return {
@@ -25,10 +27,13 @@
 			}
 		},
 		methods: {
-			
+			clickAll(){
+				console.log('要实现全部已读');
+			}
 		},
 		components:{
 			msgList,
+			navbar,
 		}
 	}
 </script>

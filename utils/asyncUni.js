@@ -1,13 +1,18 @@
-// 显示模态弹窗
-function showModal (params) {
-  return new Promise((resolve) => {
-    uni.showModal({
-      ...params,
-      success(res) { resolve(res) }
+let $uni = {}
+
+const apiList = ['showModal', 'getSystemInfo']
+
+for (let i = 0; i < apiList.length; i++) {
+  const api = apiList[i];
+  $uni[api] = function (params) {
+    return new Promise((resolve, reject) => {
+      uni[api]({
+        ...params,
+        success (res) { resolve(res) },
+        fail (err) { reject(err) }
+      })
     })
-  })
+  }
 }
 
-export default {
-  showModal
-}
+export default $uni

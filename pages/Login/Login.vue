@@ -46,7 +46,6 @@
       <custom-input
         v-model="form.image_code"
         ref="code"
-        type="tel"
         max-length="4"
         placeholder="输入图形验证码"
         class="gap-bottom"
@@ -158,12 +157,13 @@ export default {
         scene: 'login'
       })
       // 如果获取失败
-      if (isEmpty(res.data.data)) {
+      const message = res.data.message
+      if (!isEmpty(message)) {
         // 刷新验证码
         this.reqCodeImage()
         this.$uni.showModal({
           title: '获取失败',
-          content: res.data.message,
+          content: message,
           showCancel: false
         })
         return
@@ -195,13 +195,18 @@ export default {
       uni.hideLoading()
 
       // 如果登录失败
-      if (isEmpty(res.data.data)) {
+      const message = res.data.message
+      if (!isEmpty(message)) {
         await this.$uni.showModal({
           title: '登录失败',
-          content: res.data.message
+          content: message,
+          showCancel: false
         })
         return
       }
+      // 如果登录成功
+      this.$store.commit('setToken', res.data.data.token)
+      uni.showToast({ icon: 'success', title: '登录成功' })
       uni.switchTab({url: '/pages/Index/Index'})
     },
     // 校验
