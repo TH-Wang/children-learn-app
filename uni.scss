@@ -34,6 +34,12 @@
   left: $left;
 }
 
+/* 状态栏占位符 */
+.status-bar{
+  width: 100%;
+  height: var(--status-bar-height);
+}
+
 /* 颜色变量 */
 
 /* 行为相关颜色 */

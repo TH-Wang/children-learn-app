@@ -18,7 +18,10 @@ export default {
   props: {
     record: {
       type: Object,
-      default: () => ({})
+      default: () => ({
+        name: '',
+        teacher: ''
+      })
     }
   }
 }
@@ -30,10 +33,10 @@ export default {
   overflow: hidden;
 }
 .title{
-  @include font(.12rem, #333333, bold);
+  @include font(.12rem, #333333);
   margin: .06rem 0 .02rem 0;
 }
 .description{
-  @include font(.12rem, #666666);
+  @include font(.12rem, #888888);
 }
 </style>

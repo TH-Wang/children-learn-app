@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<list-item v-for='(item,index) in commonList' :listData="item||{}" :key='index'></list-item>
+    
+
+		<list-item v-for='(item,index) in commonList' :listData="item||{}" :key='index'/>
 	</view>
 </template>
 

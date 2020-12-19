@@ -1,16 +1,10 @@
 {
 	"pages": [
 		{
-			"path": "pages/Login/Login",
-			"style": {
-        "navigationStyle": "custom"
-      }
+			"path": "pages/Login/Login"
 		},
 		{
-			"path": "pages/Sign/Sign",
-			"style": {
-        "navigationStyle": "custom"
-      }
+			"path": "pages/Sign/Sign"
 		},
 		{
 			"path": "pages/Index/Index",
@@ -21,20 +15,21 @@
       }
 		},
 		{
-			"path": "pages/Study/Study",
-			"style": {
-        "navigationStyle": "custom"
-      }
+			"path": "pages/Study/Study"
 		},
 		{
-			"path": "pages/Mine/Mine"
+			"path": "pages/Mine/Mine",
+			"style": {
+        "usingComponents": {
+          "van-icon": "/wxcomponents/vant/icon/index"
+        }
+      }
     },
     {
-      "path" : "pages/listen/listen",
-      "style" : {
-        "navigationBarTitleText": "",
-        "enablePullDownRefresh": false
-      }
+      "path" : "pages/listen/listen"
+    },
+    {
+      "path" : "pages/Read/Read"
     }
   ],
 	"globalStyle": {
@@ -65,7 +60,7 @@
     }, {
       "pagePath": "pages/Mine/Mine",
       "iconPath": "static/index/mine.png",
-      "selectedIconPath": "static/index/mine.png",
+      "selectedIconPath": "static/index/mine-active.png",
       "text": "我的"
     }]
   }

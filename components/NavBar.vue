@@ -1,21 +1,22 @@
 <template>
   <view>
     <!-- 状态栏 -->
-    <view class="status-bar"></view>
+    <view class="status-bar" :style="{'background-color': navBarBackground}"/>
 
     <!-- 导航栏主体 -->
     <view :class="`nav-bar-${navBarColor}`" :style="{'background-color': navBarBackground}">
-      <!-- 返回箭头 -->
-      <van-icon
-        v-if="backArrow"
-        size=".13rem"
-        name="arrow-left"
-        @click="handleGoBack"
-      />
-
+      
       <!-- 左侧内容 -->
-      <view class="slot" @click="$emit('click-left')">
-        <slot name="left" />
+      <view class="prefix" @click="handleGoBack">
+        <!-- 返回箭头 -->
+        <view class="back-icon">
+          <van-icon v-if="backArrow" size=".14rem" name="arrow-left" style="padding-right:.05rem" />
+        </view>
+
+        <!-- 左侧插槽 -->
+        <view class="slot slot-left" @click="$emit('click-left')">
+          <slot name="left" />
+        </view>
       </view>
 
       <!-- 中间标题 -->
@@ -24,7 +25,7 @@
       </view>
 
       <!-- 右侧内容 -->
-      <view class="slot" @click="$emit('click-right')">
+      <view class="slot slot-right" @click="$emit('click-right')">
         <slot name="right" />
       </view>
     </view>
@@ -50,7 +51,7 @@ export default {
     // 导航栏文字颜色，light：白色，dark：黑色
     color: {
       type: String,
-      default: 'dark'
+      default: 'light'
     },
     // 是否在页面自动生成占位的view元素
     placeholder: {
@@ -86,9 +87,26 @@ export default {
       }
     }
   },
+  methods: {
+    handleGoBack () {
+      uni.navigateBack({ delta: 1 })
+    }
+  },
   mounted: async function () {
     const res = await this.$uni.getSystemInfo()
     this.statusHeight = res.statusBarHeight
+  },
+  watch: {
+    // app平台下动态设置状态栏文本颜色
+		// #ifdef APP-PLUS
+    scrollHeight: function (newVal) {
+      if (this.placeholder) return
+      const color = this.scrollHeight - this.statusHeight > 45
+        ? 'dark'
+        : 'light'
+      uni.setStatusBarStyle({ style: color })
+    },
+		// #endif
   }
 }
 </script>
@@ -111,14 +129,25 @@ $nav-bar-height: .44rem;
 .nav-bar{
   width: 100%;
   height: $nav-bar-height;
-  padding: 0 .15rem;
+  padding-right: .15rem;
   box-sizing: border-box;
   @include flex(space-between, center);
-  transition: all .2s;
+  transition: all .15s;
   position: fixed;
   top: var(--status-bar-height);
   left: 0;
   z-index: 99;
+
+  // 左侧内容
+  .prefix{ @include flex; }
+
+  // 返回箭头
+  .back-icon{
+    $height: .35rem;
+    padding-left: .15rem;
+    height: $height;
+    line-height: $height;
+  }
 
   // 中间标题
   .main{
@@ -126,15 +155,20 @@ $nav-bar-height: .44rem;
     font-size: .18rem;
     text-align: center;
     @include position;
+    z-index: -1;
     width: 100%;
     height: $nav-bar-height;
     line-height: $nav-bar-height;
-    transition: all .2s;
+    transition: all .05s;
   }
 
   // 插槽内容
   .slot{
     font-size: .16rem;
+    flex-shrink: 0;
+
+    &-left{ margin-right: .05rem; }
+    &-right{ margin-left: .05rem; }
   }
 }
 // 白色字体

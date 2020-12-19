@@ -57,6 +57,7 @@ export const taskList = [
     needTime: 20
   }
 ]
+
 export const commonList = [
   {
     isTbx: false,
@@ -73,5 +74,6 @@ export const commonList = [
     progress:'100%',
     classTime:"15分32秒"
   },
-  
 ]
+
+export const bookList = new Array(10).fill('').map((e, i) => ({id:i,name:'吹牛大王历险记',teacher:'叶老师'}))

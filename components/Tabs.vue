@@ -25,8 +25,10 @@ export default {
     tabs: {
       type: Object,
       default: () => ({
-        1: '听写读物',
-        2: '听有声读物'
+        1: '类别1',
+        2: '类别2',
+        dog: '类别dog',
+        cat: '类别cat'
       })
     },
     tabId: {

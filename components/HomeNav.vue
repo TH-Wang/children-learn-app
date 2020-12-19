@@ -13,7 +13,7 @@ const imgFile = (url) => require(`@/static/index/${url}`)
 const config = [
   [ '/pages/listen/listen', imgFile('listen.png'), '听', '听名师示范' ],
   [ '', imgFile('speak.png'), '说', '标准普通话' ],
-  [ '', imgFile('read.png'), '读', '世界名著' ],
+  [ '/pages/Read/Read', imgFile('read.png'), '读', '世界名著' ],
   [ '', imgFile('write.png'), '写', '文章意境' ]
 ]
 

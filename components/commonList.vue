@@ -3,7 +3,7 @@
 		<view class="list-item">
 			<!-- 课程图片 -->
 			<view class="item-img">
-				<image src="@/static/logo.png" mode=""></image>
+				<image src="" mode="aspectFill"></image>
 			</view>
 			<!-- 课程内容 -->
 			<view class="item-content">
@@ -16,7 +16,7 @@
 							{{listData.teacher}}
 						</view>
 						<view class="t-progress">
-							<image src="" mode=""></image>
+							<image src="@/static/icons/pen.png" mode=""></image>
 							<text v-if="listData.isTbx">{{listData.progress||0}}</text>
 							<text v-else>{{listData.finishNumber||0}}/{{listData.sumNumber||0}}</text>
 						</view>
@@ -29,14 +29,14 @@
 							需要掌握{{listData.sumNumber}}个词语
 						</view>
 						<view :class="progress.className">
-							<!-- <image src="../pages/dianzan.png" mode=""></image> -->
+							<image v-if="status === 'finish'" src="@/static/icons/like.png" mode="aspectFit" />
 							<text>{{progress.btnText}}</text>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		</view>
+	</view>
 </template>
 
 <script>
@@ -51,9 +51,6 @@
 			return {
 
 			};
-		},
-		mounted() {
-			console.log(this.listData.progress);
 		},
 		computed:{
 			status () {
@@ -90,7 +87,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .btn-common{
     width: 0.71rem;
     height: 0.24rem;
@@ -103,7 +100,9 @@
     font-weight: bold;
 }
 .commonList-page {
-		font-family: "PingFang";
+    font-family: "PingFang";
+    margin-top: .12rem;
+
 		.list-item {
 			width: 3.43rem;
 			height: 1.21rem;
@@ -117,7 +116,9 @@
 				background-color: #eee;
 				position: absolute;
 				left: 0;
-				top: 0;
+        top: 0;
+        border-radius: .1rem;
+        overflow: hidden;
 
 				image {
 					width: 100%;
@@ -151,14 +152,12 @@
 						}
 						.t-progress {
 							display: flex;
-							align-items: center;
-							position: relative;
-							top: -0.04rem;
-							right: 0.025rem;
+              align-items: center;
+              transform: translateY(-0.15rem);
 							image {
 								width: 0.205rem;
 								height: 0.205rem;
-								padding-right: 0.05rem;
+								padding-right: 0.1rem;
 							}
 							text {
 								font-size: 0.12rem;
@@ -176,28 +175,37 @@
 						.b-littWords {
 							font-size: 0.12rem;
 							color: #FB5852;
-						}
+            }
+            .btn{
+              width: .71rem;
+              border-radius: 0.12rem;
+              font-size: .12rem;
+              transform: translateY(-0.1rem);
+            }
 						// 完成的按钮样式，
 						.btn-finish {
+              @extend .btn;
 							background: #FFDFDE;
-							box-shadow: 0rem -0.01rem 0.01rem 0.015rem #FFC7C5 inset;
+							box-shadow: 0rem 0.04rem 0rem 0rem #FFC7C5;
 							display: flex;
-							justify-content: space-around;
+							justify-content: center;
 							align-items: center;
-							// background-image: url(@/pages/dianzan.png);
-							background-size: 0.225rem 0.175rem;
-							background-repeat: no-repeat;
-							background-position: 0.1rem 0.005rem;
+              image{
+                width: .20rem;
+                height: .15rem;
+                transform: translateY(-0.015rem);
+              }
 							text{
-								color: #000000;
-								margin-left: 0.225rem;
+                color: #000000;
+                font-weight: bold;
 							}
 						}
 						//未完成 
 						.btn-notFin{
+              @extend .btn;
 							background: #FFDFDE;
 							border-radius: 0.12rem;
-							box-shadow: 0rem -0.01rem 0.01rem 0.015rem #FFC7C5 inset;
+							box-shadow: 0rem 0.04rem 0rem 0rem #FFC7C5;
 							line-height: 0.24rem;
 							text-align: center;
 							text{
@@ -206,8 +214,10 @@
 						}
 						//未开始
 						.btn-noStart{
+              @extend .btn;
 							background: #EAEAEA;
-							box-shadow: 0rem -0.01rem 0.01rem 0.015rem #DBDBDB inset;
+							border-radius: 0.12rem;
+							box-shadow: 0rem 0.04rem 0rem 0rem #DBDBDB;
 							line-height: 0.24rem;
 							text-align: center;
 							text{
