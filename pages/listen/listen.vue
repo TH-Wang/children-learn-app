@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import {commonList} from '@/pages/index/data';
+	import {commonList} from '@/pages/Index/data';
 	import commonListItem from '@/components/commonList';
 	export default {
 		data() {

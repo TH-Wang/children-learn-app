@@ -3,7 +3,7 @@
 		<view class="list-item">
 			<!-- 课程图片 -->
 			<view class="item-img">
-				<image src="../static/logo.png" mode=""></image>
+				<image src="@/static/logo.png" mode=""></image>
 			</view>
 			<!-- 课程内容 -->
 			<view class="item-content">
@@ -16,7 +16,7 @@
 							{{listData.teacher}}
 						</view>
 						<view class="t-progress">
-							<image src="../pages/pen.png" mode=""></image>
+							<image src="" mode=""></image>
 							<text v-if="listData.isTbx">{{listData.progress||0}}</text>
 							<text v-else>{{listData.finishNumber||0}}/{{listData.sumNumber||0}}</text>
 						</view>
@@ -184,7 +184,7 @@
 							display: flex;
 							justify-content: space-around;
 							align-items: center;
-							background-image: url(../pages/dianzan.png);
+							// background-image: url(@/pages/dianzan.png);
 							background-size: 0.225rem 0.175rem;
 							background-repeat: no-repeat;
 							background-position: 0.1rem 0.005rem;

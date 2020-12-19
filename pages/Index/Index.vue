@@ -1,5 +1,11 @@
 <template>
 	<view class="content">
+    <nav-bar color="light" :placeholder="false" :scrollHeight="scrollHeight">
+      <template #left>
+        <view>一年级<van-icon name="arrow" size=".15rem" color="#fff" /></view>
+      </template>
+      首页
+    </nav-bar>
 
     <!-- banner -->
     <view class="banner"></view>
@@ -37,16 +43,20 @@
 
 <script>
   import { mapState } from 'vuex'
+  import NavBar from '@/components/NavBar'
   import HomeNav from '@/components/HomeNav'
   import Class from '@/components/Class'
   import Task from '@/components/Task'
   import HomeHeader from '@/components/HomeHeader'
 	import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
   import { classList, taskList } from './data'
+  import navBarMixin from '@/mixins/nav-bar'
   
 	export default {
+    mixins: [navBarMixin],
     components: {
-			'uni-calendar': uniCalendar,
+      'uni-calendar': uniCalendar,
+      'nav-bar': NavBar,
       'home-nav': HomeNav,
       'class-item': Class,
       'home-header': HomeHeader,

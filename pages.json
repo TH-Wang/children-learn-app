@@ -15,7 +15,6 @@
 		{
 			"path": "pages/Index/Index",
 			"style": {
-        "navigationBarTitleText": "首页",
         "usingComponents": {
           "van-button": "/wxcomponents/vant/button/index"
         }
@@ -28,10 +27,7 @@
       }
 		},
 		{
-			"path": "pages/Mine/Mine",
-			"style": {
-        "navigationBarTitleText": "我的"
-      }
+			"path": "pages/Mine/Mine"
     },
     {
       "path" : "pages/listen/listen",
@@ -44,7 +40,8 @@
 	"globalStyle": {
     "navigationBarBackgroundColor": "#FFFFFF",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "uni-app",
+    "navigationStyle": "custom",
     "backgroundColor": "#F8F8F8",
     "usingComponents": {
       "van-toast": "/wxcomponents/vant/toast/index"

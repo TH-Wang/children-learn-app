@@ -33,7 +33,6 @@
       <custom-input
         v-model="form.image_code"
         ref="image_code"
-        type="tel"
         max-length="4"
         placeholder="输入图形验证码"
         class="gap-bottom"
@@ -58,6 +57,7 @@
       <!-- 密码 -->
       <custom-input
         v-model="form.password"
+        type="password"
         ref="password"
         placeholder="输入密码"
         :rules="passwordRules"
@@ -114,7 +114,7 @@ export default {
     ],
     passwordRules: [
       {required: true, message: '请设置登录密码'},
-      {pattern: /^[^\s\S]{6,}$/g, message: '请输入至少6位密码'}
+      {pattern: /^[a-z\d~!@#$%^&*{};,.?/'"]{6,}$/i, message: '密码至少6位，由数字、字母和特殊字符组成'}
     ]
   }),
   methods: {
@@ -139,13 +139,14 @@ export default {
         image_key: key,
         scene: 'register'
       })
+      const message = res.data.message
       // 如果获取失败
-      if (isEmpty(res.data.data)) {
+      if (!isEmpty(message)) {
         // 刷新验证码
         this.reqCodeImage()
         this.$uni.showModal({
           title: '获取失败',
-          content: res.data.message,
+          content: message,
           showCancel: false
         })
         return
@@ -160,16 +161,19 @@ export default {
       const validateResult = this.validate(validList)
       if (!validateResult) return
       // 发送提交请求
-      const res = await authApi.registerBySms(this.form)
-      // 如果登录失败
-      if (isEmpty(res.data.data)) {
+      const { mobile, mobile_code, password } = this.form
+      const res = await authApi.registerBySms({ mobile, mobile_code, password })
+      const message = res.data.message
+      // 如果注册失败
+      if (!isEmpty(message)) {
         await this.$uni.showModal({
           title: '注册失败',
-          content: res.data.message
+          content: message,
+          showCancel: false
         })
         return
       }
-      uni.switchTab({url: '/pages/Index/Index'})
+      uni.switchTab({url: '/pages/Login/Login'})
     },
     // 校验
     validate (valid) {
