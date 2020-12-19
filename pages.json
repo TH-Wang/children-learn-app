@@ -32,9 +32,6 @@
 			"style": {
         "navigationBarTitleText": "我的"
       }
-<<<<<<< Updated upstream
-		}
-=======
     },
     {
       "path" : "pages/listen/listen",
@@ -43,7 +40,6 @@
         "enablePullDownRefresh": false
       }
     }
->>>>>>> Stashed changes
   ],
 	"globalStyle": {
     "navigationBarBackgroundColor": "#FFFFFF",
