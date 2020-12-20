@@ -1,5 +1,5 @@
 <template>
-  <view :class="`class-wap-${record.isVip ? 'vip' : 'normal'}`">
+  <view :class="[`class-wap-${record.isVip ? 'vip' : 'normal'}`]">
     <view class="class-top">
       <view class="main-info">
         <!-- 课程类型 -->

@@ -4,13 +4,13 @@
     <view class="status-bar" :style="{'background-color': navBarBackground}"/>
 
     <!-- 导航栏主体 -->
-    <view :class="`nav-bar-${navBarColor}`" :style="{'background-color': navBarBackground}">
+    <view :class="[`nav-bar-${navBarColor}`]" :style="{'background-color': navBarBackground}">
       
       <!-- 左侧内容 -->
       <view class="prefix" @click="handleGoBack">
         <!-- 返回箭头 -->
         <view class="back-icon">
-          <van-icon v-if="backArrow" size=".14rem" name="arrow-left" style="padding-right:.05rem" />
+          <van-icon v-if="backArrow" size=".15rem" name="arrow-left" style="padding-right:.05rem" />
         </view>
 
         <!-- 左侧插槽 -->

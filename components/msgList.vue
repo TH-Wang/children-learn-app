@@ -46,8 +46,9 @@
 	border-bottom: 0.005rem solid #E3E3E3;
 	margin: 0 auto;
 	display: flex;
+  align-items: center;
 	flex-direction: row;
-	padding-top: 0.275rem;
+	// padding-top: 0.275rem;
 	.tx-img{
 		width: 0.4rem;
 		height: 0.4rem;
@@ -59,13 +60,13 @@
 			height: 100%;
 		}
 		.msg-num{
-			width: 0.16rem;
+      padding: 0 .03rem;
 			height: 0.12rem;
 			background: #E96056;
 			border-radius: 0.06rem;
 			color: #FFFEFE;
 			font-size: 0.09rem;
-			font-weight: bold;
+			// font-weight: bold;
 			text-align: center;
 			position: absolute;
 			right: 0.025rem;

@@ -1,6 +1,6 @@
 <template>
 	<view class="myclass-page" :style="(myClassList?myClassList:[]).length>0?'':'padding-top: 1.65rem;'">
-		<view class="" v-if="(myClassList?myClassList:[]).length>0? true :false ">
+		<view class="list" v-if="(myClassList?myClassList:[]).length>0? true :false ">
 			<listItem v-for="(item,index) in myClassList" :key="index" :listItem='item'></listItem>
 		</view>
 	</view>
@@ -40,4 +40,7 @@
 </script>
 
 <style lang="scss" scoped>
+.list{
+  padding-top: .12rem;
+}
 </style>

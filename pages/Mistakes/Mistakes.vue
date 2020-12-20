@@ -1,7 +1,8 @@
 <template>
 	<view class="misrakes-page">
+    <view style="height:.12rem"></view>
 		<!-- tab栏 -->
-		<tabs class="tab" style="margin-bottom:0.24rem;margin-top: 0.1rem;"></tabs>
+		<tabs v-model="tabId" :tabs="tabs" style="margin: 0rem .16rem .24rem"></tabs>
 		<listItem v-for="(item,index) in mistakesList" :key="index" :isWrong=true :listItem='item'></listItem>
 	</view>
 </template>
@@ -12,6 +13,8 @@
 	export default {
 		data() {
 			return {
+        tabId: 1,
+        tabs: { 1: '最新', 2: '全部' },
 				mistakesList:[{
 					type:'听',
 					className:'【听写词语】四年级语文专题班',

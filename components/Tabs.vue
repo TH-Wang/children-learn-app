@@ -65,7 +65,7 @@ $height: .35rem;
     @include position;
     width: 50%;
     height: 100%;
-    background-color: #E96359;
+    background-color: #FB5852;
     border-radius: $height;
     transition: all 0.3s;
   }

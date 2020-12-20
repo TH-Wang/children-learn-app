@@ -6,11 +6,16 @@
         <image src="@/static/mine/panda.png" mode="aspectFit" />
       </view>
       <!-- 登录按钮 -->
-      <view class="button">登录/注册</view>
+      <view class="button" @click="handleLink('/pages/Login/Login')">登录/注册</view>
     </view>
 
     <!-- 会员引导按钮 -->
-    <image class="vip-button" src="@/static/mine/vip-btn.png" mode="aspectFit" />
+    <image
+      class="vip-button"
+      src="@/static/mine/vip-btn.png"
+      mode="aspectFit"
+      @click="handleLink('/pages/SubscribeVip/SubscribeVip')"
+    />
 
     <!-- grid -->
     <view class="card grid">

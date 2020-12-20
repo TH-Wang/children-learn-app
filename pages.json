@@ -43,8 +43,18 @@
       }
     },
     {
+      "path": "pages/SubscribeVip/SubscribeVip"
+    },
+    {
+      "path": "pages/MyIntegral/MyIntegral"
+    },
+    {
+      "path": "pages/MyInvite/MyInvite"
+    },
+    {
       "path": "pages/Myclass/Myclass",
       "style": {
+        "navigationStyle": "default",
         "navigationBarTitleText": "我的课程",
         "enablePullDownRefresh": false
       }
@@ -52,13 +62,15 @@
     {
       "path": "pages/Mistakes/Mistakes",
       "style": {
-        "navigationBarTitleText": "错题集",
+        "navigationStyle": "default",
+        "navigationBarTitleText": "错题库",
         "enablePullDownRefresh": false
       }
     },
     {
       "path": "pages/MyCollect/MyCollect",
       "style": {
+        "navigationStyle": "default",
         "navigationBarTitleText": "我的收藏",
         "enablePullDownRefresh": false
       }

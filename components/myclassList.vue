@@ -70,14 +70,16 @@
 .list-item{
 	width: 3.43rem;
 	height: 1.405rem;
-	margin: 0.1rem auto;
-	box-shadow: 0rem 0.02rem 0.135rem 0rem rgba(167, 167, 167, 0.14);
+	margin: 0 auto .12rem;
+  padding: .12rem .12rem 0;
+  box-sizing: border-box;
+	box-shadow: 0rem 0.01rem 0.135rem 0rem rgba(167, 167, 167, 0.14);
 	border-radius: 0.1rem;
 	.content-tit{
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		padding:0.3rem 0.03rem 0;
+		padding:0.12rem 0.03rem 0;
 		.title{
 			font-size: 0.16rem;
 			font-weight: bold;
