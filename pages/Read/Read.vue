@@ -17,7 +17,12 @@
 
     <!-- list -->
     <view class="book-list">
-      <book v-for="item in bookList" :key="item.id" :record="item" />
+      <book
+        v-for="item in bookList"
+        :key="item.id"
+        :record="item"
+        @click="handleLink(item)"
+      />
     </view>
   </view>
 </template>
@@ -42,7 +47,12 @@ export default {
     tabId: 1,
     tabs: { 1: '听写读物', 2: '听有声读物' },
     bookList
-  })
+  }),
+  methods: {
+    handleLink (record) {
+      uni.navigateTo({ url: '/pages/ReadDetail/ReadDetail' })
+    }
+  }
 }
 </script>
 

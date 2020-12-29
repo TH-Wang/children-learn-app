@@ -7,6 +7,10 @@ class Request {
   header = {
     'Content-Type': 'application/json'
   }
+  // 不需要验证传token的接口路径
+  safeUrl = [
+    '/login/password', '/login/mobile', '/register/sms', '/captcha/image'
+  ]
 
   /** 自定义请求
    * 
@@ -126,8 +130,9 @@ class Request {
   requestInterceptor (config) {
     // 如果终止请求
     // return false
-    // uni.showToast({message: '服务器正在开小差，请稍后重试'})
-    // return false
+    if (this.safeUrl.indexOf(config.url) === -1) {
+      config.header.Authorization = `Bearer ${localStorage.getItem('token')}`
+    }
 
     // 正常进行
     return config

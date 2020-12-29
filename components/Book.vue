@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view @click="$emit('click')">
     <view class="cover">
       <van-image width="100%" height="1.15rem" />
     </view>

@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import { authApi } from '@/api'
 import { isEmpty } from 'lodash'
 import Input from '@/components/Input'
 import SubmitButton from '@/components/Submit'
@@ -120,7 +119,7 @@ export default {
   methods: {
     // 请求图形验证码
     async reqCodeImage () {
-      const res = await authApi.captchaImage()
+      const res = await this.$api.captchaImage()
       this.imageCodeInfo = res.data.data
     },
     // 请求短信验证码
@@ -133,7 +132,7 @@ export default {
       const { mobile, image_code } = this.form
       const { key } = this.imageCodeInfo
       // 执行请求
-      const res = await authApi.captchaSms({
+      const res = await this.$api.captchaSms({
         mobile,
         image_captcha: image_code,
         image_key: key,
@@ -162,7 +161,7 @@ export default {
       if (!validateResult) return
       // 发送提交请求
       const { mobile, mobile_code, password } = this.form
-      const res = await authApi.registerBySms({ mobile, mobile_code, password })
+      const res = await this.$api.registerBySms({ mobile, mobile_code, password })
       const message = res.data.message
       // 如果注册失败
       if (!isEmpty(message)) {

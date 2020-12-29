@@ -1,4 +1,8 @@
 // 统一分发接口
 import auth from './auth'
+import user from './user'
 
-export const authApi = auth
+export default {
+  ...auth,
+  ...user
+}

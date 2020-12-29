@@ -44,7 +44,7 @@
   import NavBar from '@/components/NavBar'
   import HomeNav from '@/components/HomeNav'
   import NavSelector from '@/components/NavSelector'
-  import Class from '@/components/Class'
+  import Class from '@/components/class'
   import Task from '@/components/Task'
   import HomeHeader from '@/components/HomeHeader'
   import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'

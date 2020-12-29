@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import { authApi } from '@/api'
 import { isEmpty } from 'lodash'
 import Input from '@/components/Input'
 import SubmitButton from '@/components/Submit'
@@ -139,7 +138,7 @@ export default {
     },
     // 请求图形验证码
     async reqCodeImage () {
-      const res = await authApi.captchaImage()
+      const res = await this.$api.captchaImage()
       this.imageCodeInfo = res.data.data
     },
     // 请求短信验证码
@@ -150,7 +149,7 @@ export default {
       // 执行请求
       const { mobile, image_code } = this.form
       const { key } = this.imageCodeInfo
-      const res = await authApi.captchaSms({
+      const res = await this.$api.captchaSms({
         mobile,
         image_captcha: image_code,
         image_key: key,
@@ -190,8 +189,8 @@ export default {
       // 发送请求
       uni.showLoading({title: '登录中'})
       const res = this.mode === 'mobile'
-        ? await authApi.loginByMobile(data)
-        : await authApi.loginByPassword(data)
+        ? await this.$api.loginByMobile(data)
+        : await this.$api.loginByPassword(data)
       uni.hideLoading()
 
       // 如果登录失败

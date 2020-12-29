@@ -61,6 +61,10 @@ export default {
   methods: {
     // 跳转链接
     handleLink: url => uni.navigateTo({url})
+  },
+  onLoad: async function () {
+    const res = await this.$api.getMemberDetail()
+    console.log(res.data.data)
   }
 }
 </script>
