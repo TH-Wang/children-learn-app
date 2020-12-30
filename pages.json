@@ -1,5 +1,12 @@
 {
   "pages": [
+		{
+		  "path": "pages/ReadDetail/ReadDetail",
+		  "style": {
+		    "navigationStyle": "default",
+		    "navigationBarTitleText": ""
+		  }
+		},
     {
       "path": "pages/Login/Login"
     },
@@ -28,13 +35,7 @@
     {
       "path": "pages/Read/Read"
     },
-    {
-      "path": "pages/ReadDetail/ReadDetail",
-      "style": {
-        "navigationStyle": "default",
-        "navigationBarTitleText": ""
-      }
-    },
+   
     {
       "path": "pages/listen/listen",
       "style": {

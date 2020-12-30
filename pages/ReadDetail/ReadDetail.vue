@@ -1,14 +1,16 @@
 <template>
   <view class="container">
-    <view class="header"></view>
-
+    <view class="header">
+			<detail-top :detail = 'detail'></detail-top>
+		</view>
     <page-title description="明星教师领读，重点情节梳理，轻松掌握名著脉络">
       图书领读
       <template #suffix>
         <view class="gradual-button-blue">正在阅读78%</view>
       </template>
     </page-title>
-
+		<!-- 列表内容 -->
+		<read-content v-for="(item,index) in listItem" :key = 'index' :listItem='item'></read-content>
     <page-title description="课后问答互动，增强有效输入，培养独立思考能力">
       名言警句摘抄
       <template #suffix>
@@ -20,11 +22,33 @@
 
 <script>
 import PageTitle from '@/components/HomeHeader'
-
+import readContent from '@/components/playAudio.vue'
+import detailTop from '@/components/detailTop.vue'
 export default {
   components: {
-    'page-title': PageTitle
-  }
+    'page-title': PageTitle,
+		'read-content':readContent,
+		'detail-top':detailTop
+  },
+	data(){
+		return{
+			listItem:[{
+				bookName:'窗外的小豆豆(1)',
+				vedioTime:'765',//秒数
+				studyTime:'669',
+			}],
+			detail:{
+				type:2 , //1表示listen页面，2表示read页面
+				name:'窗外的小豆豆',
+				author:'(日) 黑色玫瑰',
+				fanyi:'赵玉娇',
+				content:'因为淘气被原来学校劝学，来到巴雪国，在小林校长的陪伴下长大',
+				lingDu:'张琪',
+				classImg:'',
+				peopleImg:'',
+			}
+		}
+	}
 }
 </script>
 
@@ -32,6 +56,7 @@ export default {
 // 顶部
 .header{
   height: 1.6rem;
+	// background-color: #1F2236;
 }
 
 // 渐变按钮

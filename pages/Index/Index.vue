@@ -45,7 +45,7 @@
   import HomeNav from '@/components/HomeNav'
   import NavSelector from '@/components/NavSelector'
   import Class from '@/components/class'
-  import Task from '@/components/Task'
+  import Task from '@/components/task'
   import HomeHeader from '@/components/HomeHeader'
   import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
   import { classList, taskList } from './data'

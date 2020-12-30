@@ -21,7 +21,7 @@
 			</view>
 	</view>
 </template>
-
+<!-- ctrl + 】 在元素外面包裹标签  按住ctrl选中多个光标-->
 <script>
 	export default {
 		props: {
