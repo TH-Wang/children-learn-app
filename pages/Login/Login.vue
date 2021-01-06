@@ -45,7 +45,7 @@
       <!-- 图形验证码 -->
       <custom-input
         v-model="form.image_code"
-        ref="code"
+        ref="image_code"
         max-length="4"
         placeholder="输入图形验证码"
         class="gap-bottom"

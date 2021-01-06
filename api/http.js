@@ -2,7 +2,7 @@
 
 class Request {
   // 服务器地址
-  baseURL = "http://www.tsdxedu.com/api/v2"
+  baseURL = "https://www.tsdxedu.com/api/v2"
   // 请求头
   header = {
     'Content-Type': 'application/json'
