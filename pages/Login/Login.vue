@@ -92,7 +92,7 @@
 <script>
 import { isEmpty } from 'lodash'
 import Input from '@/components/Input'
-import SubmitButton from '@/components/Submit'
+import SubmitButton from '@/components/submit'
 import vertifyCodeMixin from '@/mixins/vertify-code'
 
 export default {
