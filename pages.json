@@ -1,18 +1,5 @@
 {
   "pages": [
-		{
-		  "path": "pages/ReadDetail/ReadDetail",
-		  "style": {
-		    "navigationStyle": "default",
-		    "navigationBarTitleText": ""
-		  }
-		},
-    {
-      "path": "pages/Login/Login"
-    },
-    {
-      "path": "pages/Sign/Sign"
-    },
     {
       "path": "pages/Index/Index",
       "style": {
@@ -22,7 +9,16 @@
       }
     },
     {
+      "path": "pages/Login/Login"
+    },
+    {
+      "path": "pages/Sign/Sign"
+    },
+    {
       "path": "pages/Study/Study"
+    },
+    {
+      "path": "pages/StudyDetail/StudyDetail"
     },
     {
       "path": "pages/Mine/Mine",
@@ -35,14 +31,16 @@
     {
       "path": "pages/Read/Read"
     },
-   
-    {
-      "path": "pages/listen/listen",
-      "style": {
-        "navigationBarTitleText": "",
-        "enablePullDownRefresh": false
-      }
-    },
+		{
+		  "path": "pages/ReadDetail/ReadDetail",
+		  "style": {
+		    "navigationStyle": "default",
+		    "navigationBarTitleText": ""
+		  }
+		},
+		{
+		  "path": "pages/ReadContent/ReadContent"
+		},
     {
       "path": "pages/listen/listen",
       "style": {
@@ -50,6 +48,16 @@
         "enablePullDownRefresh": false
       }
     },
+		{
+		  "path": "pages/listenDetail/listenDetail"
+		},
+		{
+      "path": "pages/SpeakDetail/SpeakDetail",
+      "style": {
+        "navigationStyle": "default",
+        "navigationBarTitleText": ""
+      }
+		},
     {
       "path": "pages/SubscribeVip/SubscribeVip"
     },

@@ -1,5 +1,5 @@
 <template>
-	<view class="playlist-page">
+	<view class="playlist-page" @click="$emit('click')">
 		<view class="read-content">
 			<view class="content">
 				<view class="book-name">

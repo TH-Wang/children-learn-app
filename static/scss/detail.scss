@@ -1,0 +1,62 @@
+@import '@/uni.scss';
+
+.header{
+  height: 2.5rem;
+  width: 100vw;
+  background-color: #1F2236;
+}
+.content{
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: calc(100vh - 2.3rem);
+  background-color: #FFFFFF;
+  border-top-left-radius: .1rem;
+  border-top-right-radius: .1rem;
+  padding: 1px .16rem .24rem .16rem;
+  box-sizing: border-box;
+  
+  .scroll-container{
+    height: calc(100% - .6rem);
+    overflow-y: auto;
+  }
+
+  .title{
+    margin-top: .24rem;
+    @include font(.21rem, #000000, bold);
+  }
+  .teacher{
+    margin-top: .06rem;
+    @include flex(flex-start, center);
+
+    .avatar{
+      width: .24rem;
+      height: .24rem;
+      border-radius: 50%;
+      background-color: #eeeeee;
+      margin-right: .1rem;
+    }
+
+    .name{
+      @include font(.13rem, #999999);
+    }
+  }
+  .desc{
+    margin-top: .18rem;
+    line-height: .24rem;
+    @include font(.14rem, #999999);
+  }
+}
+
+.footer-button{
+  width: calc(100% - .32rem);
+  height: .5rem;
+  line-height: .5rem;
+  @include font(.17rem, #ffffff, $align:center);
+  background-color: #FB5852;
+  border-radius: .05rem;
+  position: absolute;
+  bottom: .24rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

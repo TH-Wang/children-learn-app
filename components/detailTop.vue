@@ -5,7 +5,7 @@
 				<image src="" mode=""></image>
 			</view>
 			<view class="detail-content" :style="style.main">
-				<view class="class-name">
+				<view class="class-name" :style="style.title">
 					{{detail.name}}
 				</view>
 				<view class="class-author">
@@ -33,7 +33,11 @@
 		  detail: {
 		    type: Object,
 		    default: () => ({})
-		  }
+		  },
+      theme: {
+        type: String,
+        default: 'light'
+      }
 		},
 		data() {
 			return {
@@ -42,15 +46,17 @@
 		},
 		computed:{
 			style(){
-				if(this.detail.type == 1){
+				if(this.theme === 'light'){
 					return {
 						main:'color:#FFFFFF',
-						lingDu:'color:#FFFFFF'
+            lingDu:'color:#FFFFFF',
+            title: 'color:#FFFFFF'
 					}
 				}else{
 					return {
 						main:'color:#999999',
-						lingDu:'color:#666666'
+            lingDu:'color:#666666',
+            title: 'color:#333333'
 					}
 				}
 			}

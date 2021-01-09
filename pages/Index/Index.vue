@@ -2,7 +2,7 @@
 	<view class="content">
     <!-- 顶部导航栏 -->
     <nav-bar color="light" :placeholder="false" :scrollHeight="scrollHeight">
-      <template #left><nav-selector /></template>首页
+      <template #left><nav-selector /></template>听说读写
     </nav-bar>
 
     <!-- banner -->

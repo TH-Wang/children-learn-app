@@ -1,7 +1,7 @@
 <template>
   <view class="container">
     <view class="header">
-			<detail-top :detail = 'detail'></detail-top>
+			<detail-top theme="dark" :detail='detail'></detail-top>
 		</view>
     <page-title description="明星教师领读，重点情节梳理，轻松掌握名著脉络">
       图书领读
@@ -10,7 +10,12 @@
       </template>
     </page-title>
 		<!-- 列表内容 -->
-		<read-content v-for="(item,index) in listItem" :key = 'index' :listItem='item'></read-content>
+		<read-content
+      v-for="(item,index) in listItem"
+      :key = 'index'
+      :listItem='item'
+      @click="handleLink"
+    />
     <page-title description="课后问答互动，增强有效输入，培养独立思考能力">
       名言警句摘抄
       <template #suffix>
@@ -48,7 +53,14 @@ export default {
 				peopleImg:'',
 			}
 		}
-	}
+  },
+  methods: {
+    handleLink () {
+      uni.navigateTo({
+        url: '/pages/ReadContent/ReadContent'
+      })
+    }
+  }
 }
 </script>
 

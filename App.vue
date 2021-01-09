@@ -20,5 +20,6 @@ html{
 }
 body{
   font-size: .16rem;
+  font-family: 'PingFang';
 }
 </style>

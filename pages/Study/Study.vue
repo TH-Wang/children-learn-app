@@ -12,7 +12,12 @@
     <view style="height:.24rem"></view>
 
     <!-- list -->
-    <list-item v-for='(item,index) in classList' :listData="item||{}" :key='index' />
+    <list-item
+      v-for='(item,index) in classList'
+      :listData="item||{}"
+      :key='index'
+      @click="handleLink"
+    />
   </view>
 </template>
 
@@ -33,7 +38,14 @@ export default {
   data: () => ({
     tabId: 1,
     classList: commonList
-  })
+  }),
+  methods: {
+    handleLink () {
+      uni.navigateTo({
+        url: '/pages/StudyDetail/StudyDetail'
+      })
+    }
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-	<view class="commonList-page">
+	<view class="commonList-page" @click="$emit('click')">
 		<view class="list-item">
 			<!-- 课程图片 -->
 			<view class="item-img">
