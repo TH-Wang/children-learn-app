@@ -1,5 +1,5 @@
 <template>
-	<view>
+  <view>
     <!-- navbar -->
     <nav-bar back-arrow :placeholder="false" :scrollHeight="scrollHeight">
       <template #right><nav-selector /></template>
@@ -8,48 +8,39 @@
     <!-- header -->
     <view class="header"></view>
 
-    <!-- tabs -->
-    <tabs v-model="tabId" :tabs="tabs" style="margin-top:.24rem" />
-
     <!-- list -->
-		<list-item
-      v-for='(item,index) in commonList'
-      :listData="item||{}"
-      :key='index'
-      @click="handleLink"
-    />
-	</view>
+    <view class="book-list">
+      <book
+        v-for="item in bookList"
+        :key="item.id"
+        :record="item"
+        @click="handleLink(item)"
+      />
+    </view>
+  </view>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar'
 import NavSelector from '@/components/NavSelector'
-import Tabs from '@/components/Tabs'
-import commonListItem from '@/components/commonList';
+import Book from '@/components/Book'
 import navBarMixin from '@/mixins/nav-bar'
-import { commonList } from '@/pages/Index/data';
+import { bookList } from '@/pages/Index/data'
 
 export default {
   mixins: [navBarMixin],
-  data() {
-    return {
-      commonList,
-      tabId: 1,
-      tabs: { 1: '听写读物', 2: '听有声读物' },
-    }
+  components: {
+    'nav-bar': NavBar,
+    'nav-selector': NavSelector,
+    'book': Book,
   },
+  data: () => ({
+    bookList
+  }),
   methods: {
-    handleLink () {
-      uni.navigateTo({
-        url: '/pages/listenDetail/listenDetail'
-      })
+    handleLink (record) {
+      uni.navigateTo({ url: '/pages/ReadDetail/ReadDetail' })
     }
-  },
-  components:{
-    listItem:commonListItem,
-    NavBar,
-    NavSelector,
-    Tabs
   }
 }
 </script>
@@ -63,5 +54,13 @@ export default {
   border-bottom-right-radius: .1rem;
   padding: 1px .15rem;
   box-sizing: border-box;
+}
+
+// 书籍列表容器
+.book-list{
+  margin: .2rem .16rem;
+  display: grid;
+  gap: .12rem .38rem;
+  grid-template-columns: repeat(3, 1fr);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <view class="main">
     <!-- navbar -->
-    <nav-bar back-arrow :placeholder="false" :scrollHeight="scrollHeight">
+    <nav-bar :placeholder="false" :scrollHeight="scrollHeight">
       <template #right><nav-selector /></template>
     </nav-bar>
 
@@ -55,6 +55,6 @@ export default {
   width: 100%;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  background-color: #E96359;
+  background-color: #FB5852;
 }
 </style>

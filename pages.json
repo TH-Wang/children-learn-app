@@ -29,7 +29,7 @@
       }
     },
     {
-      "path": "pages/Read/Read"
+      "path": "pages/Course/Course"
     },
 		{
 		  "path": "pages/ReadDetail/ReadDetail",

@@ -9,7 +9,7 @@
 			<view class="item-content">
 				<view class="content-text">
 					<view class="content-name">
-						{{listData.className}}
+						{{listData.title}}
 					</view>
 					<view class="content-teacher">
 						<view class="t-teacher">
@@ -26,7 +26,9 @@
 							{{listData.classTime}}
 						</view>
 						<view class="b-littWords" v-else>
-							需要掌握{{listData.sumNumber}}个词语
+							<!-- 需要掌握{{listData.sumNumber}}个词语 -->
+              <!-- {{listData.short_description}} -->
+              一年级上册天地人一年级上册天地人
 						</view>
 						<view :class="progress.className">
 							<image v-if="status === 'finish'" src="@/static/icons/like.png" mode="aspectFit" />
@@ -174,8 +176,11 @@
 						margin-top: 0.13rem;
 						line-height: 0.25rem;
 						.b-littWords {
+              flex: 1;
+              margin-right: .1rem;
+              @include ellipsis;
 							font-size: 0.12rem;
-							color: #FB5852;
+							// color: #FB5852;
             }
             .btn{
               width: .71rem;

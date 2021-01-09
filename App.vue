@@ -1,15 +1,42 @@
 <script>
-	export default {
-		onLaunch: function() {
-      
-		},
-		onShow: function() {
-      
-		},
-		onHide: function() {
-      
-		}
-	}
+import { mapMutations, mapState } from 'vuex'
+import { isEmpty } from 'lodash'
+
+export default {
+  computed: {
+    ...mapState(['global'])
+  },
+  methods: {
+    ...mapMutations(['setGlobalData', 'setLocalStorage']),
+    // 请求课程分类
+    async reqCategories () {
+      const res = await this.$api.getCourseCategories()
+      const categories = res.data.data
+      this.setGlobalData({ categories })
+      if (!this.global.category && categories.length) {
+        const category = categories[0].id
+        this.setLocalStorage({ category })
+      }
+    },
+    // 请求课程列表
+    async reqCourseList () {
+      const data = {}
+      if (this.global.category) data.category = this.global.category
+      const res = await this.$api.getCoursesList(data)
+      this.setGlobalData({ courseList: res.data.data.data })
+    }
+  },
+  onLaunch: async function() {
+    await this.reqCategories()
+    await this.reqCourseList()
+  },
+  onShow: function() {
+    
+  },
+  onHide: function() {
+    
+  }
+}
 </script>
 
 <style>

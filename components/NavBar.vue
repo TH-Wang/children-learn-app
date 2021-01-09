@@ -7,9 +7,9 @@
     <view :class="[`nav-bar-${navBarColor}`]" :style="{'background-color': navBarBackground}">
       
       <!-- 左侧内容 -->
-      <view class="prefix" @click="handleGoBack">
+      <view class="prefix">
         <!-- 返回箭头 -->
-        <view class="back-icon">
+        <view class="back-icon" @click="handleGoBack">
           <van-icon v-if="backArrow" size=".15rem" name="arrow-left" style="padding-right:.05rem" />
         </view>
 

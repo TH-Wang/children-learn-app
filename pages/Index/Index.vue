@@ -2,7 +2,7 @@
 	<view class="content">
     <!-- 顶部导航栏 -->
     <nav-bar color="light" :placeholder="false" :scrollHeight="scrollHeight">
-      <template #left><nav-selector /></template>听说读写
+      <template #left><nav-selector v-model="category" /></template>听说读写
     </nav-bar>
 
     <!-- banner -->
@@ -63,6 +63,7 @@
       'task-item': Task
     },
 		data: () => ({
+      category: 1,
       classList: classList,
       taskList: taskList
     }),
@@ -70,19 +71,10 @@
 			...mapState(['title'])
     },
     methods: {
-      onClick () {
-        this.$toast({
-          message: '正在努力开发中...',
-          position: 'bottom'
-        })
-      },
       handleCalendarChange (e) {
         console.log(e)
       }
-    },
-		onLoad() {
-
-		}
+    }
 	}
 </script>
 

@@ -28,12 +28,12 @@
 
 <script>
 import NavBar from '@/components/NavBar'
-// import DetailTop from '@/components/detailTop.vue'
+import Icon from '@/wxcomponents/vant/icon/index.vue'
 
 export default {
   components: {
-    NavBar
-    // DetailTop
+    NavBar,
+    'van-icon': Icon
   }
 }
 </script>
