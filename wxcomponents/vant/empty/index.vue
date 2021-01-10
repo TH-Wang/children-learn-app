@@ -1,25 +1,23 @@
 <template>
-<uni-shadow-root class="vant-empty-index">
-  <view class="custom-class van-empty" @click="$emit('click')">
-    <view class="van-empty__image">
-      <slot name="image"></slot>
-    </view>
-    <view class="van-empty__image">
-      <image v-if="imageUrl" class="van-empty__image__img" :src="imageUrl"></image>
-    </view>
-
-    <view class="van-empty__description">
-      <slot name="description"></slot>
-    </view>
-    <view class="van-empty__description">
-      {{ description }}
-    </view>
-
-    <view class="van-empty__bottom">
-      <slot></slot>
-    </view>
+<uni-shadow-root class="vant-empty-index"><view class="custom-class van-empty">
+  <view class="van-empty__image">
+    <slot name="image"></slot>
   </view>
-</uni-shadow-root>
+  <view class="van-empty__image">
+    <image v-if="imageUrl" class="van-empty__image__img" :src="imageUrl"></image>
+  </view>
+
+  <view class="van-empty__description">
+    <slot name="description"></slot>
+  </view>
+  <view class="van-empty__description">
+    {{ description }}
+  </view>
+
+  <view class="van-empty__bottom">
+    <slot></slot>
+  </view>
+</view></uni-shadow-root>
 </template>
 <wxs src="../wxs/utils.wxs" module="utils"></wxs>
 <script>
