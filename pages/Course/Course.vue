@@ -17,16 +17,17 @@
     <tab-selector v-model="chapter" :selections="chapterList" />
 
     <!-- list -->
-    <van-empty
+    <view
       v-if="commonList.length === 0"
-      :description="videosIsEmpty ? '暂无课程，点击刷新' : '该章节暂无课程'"
-      @click="handleRetry"/>
+      @click="handleRetry">
+      <van-empty :description="videosIsEmpty ? '暂无课程，点击刷新' : '该章节暂无课程'" />
+    </view>
 		<list-item
       v-else
-      v-for="(item,index) in commonList"
+      v-for="item in commonList"
       :listData="item||{}"
-      :key="index"
-      @click="handleLink"
+      :key="item.id"
+      @click="handleLink(item.id)"
     />
 	</view>
 </template>
@@ -77,6 +78,7 @@ export default {
       this.chapterList = chapters
       this.chapter = chapters[0].id
       this.videos = videos
+      this.commonList = videos[this.chapter]
     },
     // 点击重试
     async handleRetry () {
@@ -84,9 +86,9 @@ export default {
       await this.reqChapters()
     },
     // 跳转详情页面
-    handleLink () {
+    handleLink (id) {
       uni.navigateTo({
-        url: '/pages/listenDetail/listenDetail'
+        url: `/pages/CourseDetail/CourseDetail?id=${id}`
       })
     }
   },

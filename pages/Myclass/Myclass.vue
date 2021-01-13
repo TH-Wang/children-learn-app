@@ -40,11 +40,17 @@
 			}
 		},
 		methods: {
-
+      async handleReq () {
+        const res = await this.$api.getMemberCourses()
+        this.myClassList= res.data.data.courses
+      }
 		},
 		components: {
 			listItem: listItem,
-		}
+    },
+    onLoad () {
+      this.handleReq()
+    }
 	}
 </script>
 

@@ -74,6 +74,10 @@
     },
     "h5" : {
         "title" : "听说读写",
-        "domain" : ""
+        "domain" : "",
+        "devServer" : {
+            "port" : 8848,
+            "https" : false
+        }
     }
 }

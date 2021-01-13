@@ -4,8 +4,9 @@
       <view class="main-info">
         <!-- 课程类型 -->
         <view class="left-top">
-          <view :class="[`tag-${tagType[record.type].name}`, `${record.isVip ? 'tag-vip' : ''}`]">
-            {{tagType[record.type].text}}
+          <view :class="[`tag-${tagType[record.title].name}`, `${record.isVip ? 'tag-vip' : ''}`]">
+            <!-- {{tagType[record.type].text}} -->
+            {{record.title}}
           </view>
           <view class="class-time">上课时间</view>
         </view>
@@ -61,10 +62,10 @@ export default {
   data: () => ({
     // 课程类型
     tagType: {
-      1: { name: 'listen', text: '听' },
-      2: { name: 'speak', text: '说' },
-      3: { name: 'read', text: '读' },
-      4: { name: 'write', text: '写' }
+      '听': { name: 'listen', text: '听' },
+      '说': { name: 'speak', text: '说' },
+      '读': { name: 'read', text: '读' },
+      '写': { name: 'write', text: '写' }
     }
   })
 

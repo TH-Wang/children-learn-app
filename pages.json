@@ -23,6 +23,8 @@
     {
       "path": "pages/Mine/Mine",
       "style": {
+		    "navigationStyle": "default",
+		    "navigationBarTitleText": "个人中心",
         "usingComponents": {
           "van-icon": "/wxcomponents/vant/icon/index"
         }
@@ -30,6 +32,9 @@
     },
     {
       "path": "pages/Course/Course"
+    },
+    {
+      "path": "pages/CourseDetail/CourseDetail"
     },
 		{
 		  "path": "pages/ReadDetail/ReadDetail",

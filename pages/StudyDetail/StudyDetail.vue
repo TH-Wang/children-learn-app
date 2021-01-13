@@ -13,7 +13,7 @@
     <!-- content -->
     <view class="content">
       <view class="video-list">
-        <view class="video-item" v-for="(item, index) in videoList">
+        <view class="video-item" v-for="(item, index) in videoList" :key="index">
           <image class="video-item-cover" />
           <view class="video-item-title">第28课：大青树下的小学第28课：大青树下的小学</view>
         </view>

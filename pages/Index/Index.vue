@@ -25,17 +25,17 @@
     </view>
     
     <!-- 课程列表 -->
-    <class-item v-for="item in classList" :key="item.id" :record="item" />
+    <class-item v-for="item in global.courseList" :key="item.id" :record="item" />
 
     <!-- 今日任务 -->
-    <home-header>今日任务</home-header>
+    <!-- <home-header>今日任务</home-header>
     <task-item :task="taskList[0]" />
-    <task-item :task="taskList[1]" />
+    <task-item :task="taskList[1]" /> -->
 
     <!-- 本周任务 -->
-    <home-header>本周任务</home-header>
+    <!-- <home-header>本周任务</home-header>
     <task-item :task="taskList[2]" />
-    <task-item :task="taskList[3]" />
+    <task-item :task="taskList[3]" /> -->
   </view>
 </template>
 
@@ -68,7 +68,7 @@
       taskList: taskList
     }),
 		computed: {
-			...mapState(['title'])
+			...mapState(['global'])
     },
     methods: {
       handleCalendarChange (e) {

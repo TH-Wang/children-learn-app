@@ -1,7 +1,9 @@
 <template>
   <view>
-    <van-emtpy description="暂无数据，点击刷新" @click="refresh" />
-    <slot></slot>
+    <view v-if="list.length === 0">
+      <van-emtpy description="暂无数据，点击刷新" @click="refresh" />
+    </view>
+    <view v-else><slot></slot></view>
     <uni-load-more :status="status" />
   </view>
 </template>

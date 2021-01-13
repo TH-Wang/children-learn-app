@@ -22,14 +22,12 @@
 						</view>
 					</view>
 					<view class="content-btn">
-						<view class="b-littWords" v-if="listData.isTbx">
-							{{listData.classTime}}
+						<view class="b-littWords">
+							{{duration}}
 						</view>
-						<view class="b-littWords" v-else>
-							<!-- 需要掌握{{listData.sumNumber}}个词语 -->
-              <!-- {{listData.short_description}} -->
-              一年级上册天地人一年级上册天地人
-						</view>
+						<!-- <view class="b-littWords" v-else>
+							需要掌握{{listData.sumNumber}}个词语
+						</view> -->
 						<view :class="progress.className">
 							<image v-if="status === 'finish'" src="@/static/icons/like.png" mode="aspectFit" />
 							<text>{{progress.btnText}}</text>
@@ -55,6 +53,11 @@
 			};
 		},
 		computed:{
+      // 视频时长转换
+      duration () {
+        const duration = this.listData.duration
+        return `${parseInt(duration / 60)}分${duration % 60}秒`
+      },
 			status () {
 			  // noStart: 未开始, doing: 进行中, finish: 已完成
 				let taskProgress;
@@ -180,7 +183,7 @@
               margin-right: .1rem;
               @include ellipsis;
 							font-size: 0.12rem;
-							// color: #FB5852;
+							color: #FB5852;
             }
             .btn{
               width: .71rem;

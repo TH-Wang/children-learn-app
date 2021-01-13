@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash'
 
 export default {
   computed: {
-    ...mapState(['global'])
+    ...mapState(['global', 'auth'])
   },
   methods: {
     ...mapMutations(['setGlobalData', 'setLocalStorage']),
@@ -19,8 +19,9 @@ export default {
       }
     },
     // 请求课程列表
-    async reqCourseList () {
+    async reqCourseList (login) {
       const data = {}
+      if (!login) data.scene = 'recom,sub'
       if (this.global.category) data.category = this.global.category
       const res = await this.$api.getCoursesList(data)
       this.setGlobalData({ courseList: res.data.data.data })
@@ -28,7 +29,7 @@ export default {
   },
   onLaunch: async function() {
     await this.reqCategories()
-    await this.reqCourseList()
+    await this.reqCourseList(this.auth.token)
   },
   onShow: function() {
     
