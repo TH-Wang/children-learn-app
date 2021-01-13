@@ -25,7 +25,7 @@
     </view>
     
     <!-- 课程列表 -->
-    <class-item v-for="item in global.courseList" :key="item.id" :record="item" />
+    <course-item v-for="item in global.courseList" :key="item.id" :record="item" />
 
     <!-- 今日任务 -->
     <!-- <home-header>今日任务</home-header>
@@ -44,7 +44,8 @@
   import NavBar from '@/components/NavBar'
   import HomeNav from '@/components/HomeNav'
   import NavSelector from '@/components/NavSelector'
-  import Class from '@/components/class'
+  // import Class from '@/components/class'
+  import CourseItem from '@/components/CourseItem'
   import Task from '@/components/task'
   import HomeHeader from '@/components/HomeHeader'
   import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
@@ -58,7 +59,8 @@
       'nav-bar': NavBar,
       'nav-selector': NavSelector,
       'home-nav': HomeNav,
-      'class-item': Class,
+      'course-item': CourseItem,
+      // 'class-item': Class,
       'home-header': HomeHeader,
       'task-item': Task
     },

@@ -52,7 +52,8 @@ export default {
   },
   data() {
     return {
-      type: '',
+      id: null,
+      type: null,
       chapter: 1,
       chapterList: [],
       videos: {},
@@ -69,7 +70,7 @@ export default {
   methods: {
     // 获取章节列表
     async reqChapters () {
-      const id = this.courseId(this.type)
+      const id = this.id || this.courseId(this.type)
       if (!id) return
       uni.showLoading({title: '加载中'})
       const res = await this.$api.getCourseDetail(id)
@@ -93,6 +94,7 @@ export default {
     }
   },
   onLoad (option) {
+    this.id = option.id
     this.type = option.type
     this.reqChapters()
   },
