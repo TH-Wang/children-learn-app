@@ -1,7 +1,7 @@
 const getImage = (path) => require(`@/static/mine/${path}`)
 
 export const grid = [
-  ['', getImage('order.png'), '我的订单'],
+  ['/pages/Myorder/Myorder', getImage('order.png'), '我的订单'],
   ['/pages/MyCollect/MyCollect', getImage('favorite.png'), '我的收藏'],
   ['/pages/MsgCenter/MsgCenter', getImage('message.png'), '消息中心']
 ]

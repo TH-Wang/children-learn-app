@@ -23,7 +23,7 @@
         class="grid-item"
         v-for="(item, index) in config.grid"
         :key="index"
-        @click="handleLink(item[0])"
+        @click="index==0?handleOrderLink():handleLink(item[0])"
       ><image :src="item[1]" mode="aspectFit" />
        <text class="title">{{item[2]}}</text>
       </view>
@@ -56,16 +56,41 @@ import { grid, list } from './config'
 
 export default {
   data: () => ({
-    config: { grid, list }
+    config: { grid, list },
+		isLogin:false
   }),
   methods: {
     // 跳转链接
-    handleLink: url => uni.navigateTo({url})
+    handleLink: url => uni.navigateTo({url}),
+		// 判断是否登录
+		handleOrderLink(){
+			if(this.isLogin){
+				uni.navigateTo({
+				    url: '/pages/Myorder/Myorder'
+				});
+				console.log(11111111111);
+			}else{
+				uni.navigateTo({
+				    url: '/pages/Login/Login'
+				});
+			}
+			
+		},
+		async getMemberDetail () {
+			const res = await this.$api.getMemberDetail()
+			console.log(res.data.data)
+		}
   },
-  onLoad: async function () {
-    const res = await this.$api.getMemberDetail()
-    console.log(res.data.data)
-  }
+  onLoad() {
+		this.getMemberDetail();
+		if(this.$store.state.auth.token){
+			this.isLogin = true;
+		}
+		// console.log(this.$store.getters.token);
+		console.log(this.$store.state.auth.token);
+		console.log(this.isLogin);
+    
+	}
 }
 </script>
 

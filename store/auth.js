@@ -10,5 +10,10 @@ export default {
       state.token = data
       localStorage.setItem('token', data)
     }
-  }
+  },
+ getters: {
+		token: (state,data) => {
+			return data
+		}
+	}
 }
