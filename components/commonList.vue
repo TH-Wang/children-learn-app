@@ -3,7 +3,7 @@
 		<view class="list-item">
 			<!-- 课程图片 -->
 			<view class="item-img">
-				<image src="" mode="aspectFill"></image>
+				<image :src="cover" mode="aspectFill"></image>
 			</view>
 			<!-- 课程内容 -->
 			<view class="item-content">
@@ -40,23 +40,23 @@
 </template>
 
 <script>
+  import transDuration from '@/utils/transDuration'
+
 	export default {
 		props: {
 		  listData: {
 		    type: Object,
 		    default: () => ({})
-		  }
-		},
-		data() {
-			return {
-
-			};
+      },
+      cover: {
+        type: String,
+        default: ''
+      }
 		},
 		computed:{
       // 视频时长转换
       duration () {
-        const duration = this.listData.duration
-        return `${parseInt(duration / 60)}分${duration % 60}秒`
+        return transDuration(this.listData.duration)
       },
 			status () {
 			  // noStart: 未开始, doing: 进行中, finish: 已完成

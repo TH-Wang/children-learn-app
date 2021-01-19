@@ -2,11 +2,16 @@
 	<view>
     <!-- navbar -->
     <nav-bar back-arrow :placeholder="false" :scrollHeight="scrollHeight">
-      <template #right><nav-selector /></template>
+      <template #right>
+        <collection :active="isCollect" @change="handleCollectionChange" />
+        <nav-selector />
+      </template>
     </nav-bar>
 
     <!-- header -->
-    <view class="header"></view>
+    <view class="header">
+      <image :src="cover" lazy-load mode="aspectFill" />
+    </view>
     <!-- <view class="header">
       <view class="status-bar"/>
       <view class="sentence">多读书,到底怎样才能学会语文。</view>
@@ -26,18 +31,37 @@
       v-else
       v-for="item in commonList"
       :listData="item||{}"
+      :cover="cover"
       :key="item.id"
       @click="handleLink(item.id)"
     />
+
+    <!-- footer -->
+    <view class="footer" v-if="!isLogin || !isBuy">
+      <view
+        v-if="!isLogin"
+        class="footer-button"
+        @click="handleLinkLogin"
+      >请登录后观看</view>
+      <template v-else-if="!isBuy">
+        <view class="price">￥{{course.charge}}</view>
+        <view class="footer-button">购买课程</view>
+        <view
+          class="footer-button vip-button"
+          @click="handleLinkVip">会员免费看</view>
+      </template>
+    </view>
 	</view>
 </template>
 
 <script>
+import Image from '@/wxcomponents/vant/image/index.vue'
 import Empty from '@/wxcomponents/vant/empty/index.vue'
 import NavBar from '@/components/NavBar'
 import NavSelector from '@/components/NavSelector'
 import TabSelector from '@/components/TabSelector'
 import commonListItem from '@/components/commonList';
+import Collection from '@/components/Collection'
 import navBarMixin from '@/mixins/nav-bar'
 import { mapGetters, mapState } from 'vuex';
 
@@ -48,21 +72,33 @@ export default {
     NavBar,
     NavSelector,
     TabSelector,
-    'van-empty': Empty
+    Collection,
+    'van-empty': Empty,
+    'van-image': Image
   },
-  data() {
-    return {
-      id: null,
-      type: null,
-      chapter: 1,
-      chapterList: [],
-      videos: {},
-      commonList: []
-    }
-  },
+  data: () => ({
+    id: null,
+    type: null,
+    // 当前选择的章节
+    chapter: 1,
+    // 课程信息
+    course: {},
+    // 章节列表
+    chapterList: [],
+    // 所有视频列表
+    videos: {},
+    // 当前章节的视频列表
+    commonList: [],
+    // 是否购买
+    isBuy: false,
+    // 是否收藏
+    isCollect: false,
+    // 课程封面
+    cover: ''
+  }),
   computed: {
     ...mapState(['global']),
-    ...mapGetters(['courseId']),
+    ...mapGetters(['courseId', 'isLogin']),
     videosIsEmpty () {
       return Object.keys(this.videos).length === 0
     }
@@ -74,23 +110,48 @@ export default {
       if (!id) return
       uni.showLoading({title: '加载中'})
       const res = await this.$api.getCourseDetail(id)
-      const { chapters, videos } = res.data.data
+      const { chapters, videos, course, isBuy, isCollect } = res.data.data
       uni.hideLoading()
       this.chapterList = chapters
       this.chapter = chapters[0].id
       this.videos = videos
-      this.commonList = videos[this.chapter]
+      this.course = course
+      this.cover = course.thumb
+      this.isBuy = isBuy
+      this.isCollect = isCollect
+      this.commonList = videos[this.chapter] || []
     },
     // 点击重试
     async handleRetry () {
       if (!this.videosIsEmpty) return
       await this.reqChapters()
     },
+    // 收藏状态发生改变
+    async handleCollectionChange (value) {
+      this.isCollect = value
+      console.log(this.id)
+      const res = await this.$api.courseLike(this.id)
+      const { code, data } = res
+      // 反馈
+      if (code === 0) {
+        const toast = value ? {title: '收藏成功'} : {title: '已取消收藏该课程', icon: 'none'}
+        uni.showToast(toast)
+      }
+    },
     // 跳转详情页面
     handleLink (id) {
+      if (!this.isLogin || !this.isBuy) return
       uni.navigateTo({
         url: `/pages/CourseDetail/CourseDetail?id=${id}`
       })
+    },
+    // 跳转到登录页面
+    handleLinkLogin () {
+      uni.navigateTo({ url: '/pages/Login/Login' })
+    },
+    // 跳转到vip页面
+    handleLinkVip () {
+      uni.navigateTo({ url: '/pages/SubscribeVip/SubscribeVip' })
     }
   },
   onLoad (option) {
@@ -114,6 +175,45 @@ export default {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: #FB5852;
+
+  image{
+    width: 100%;
+    height: 100%;
+  }
+}
+// 底部提示栏
+.footer{
+  @include flex(space-between, center);
+  width: 100%;
+  height: .65rem;
+  padding: .1rem;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: #FFFFFF;
+  border-top: solid 1px #F5F5F5;
+  
+  .price{
+    @include font(.18rem, #FB5852, bold);
+    margin-right: .2rem;
+  }
+
+  &-button{
+    flex: 1;
+    border-radius: .5rem;
+    height: 100%;
+    background-color: #FB5852;
+    @include font(.14rem, #FFFFFF);
+    @include flex(center, center);
+  }
+  
+  .vip-button{
+    margin-left: .1rem;
+    background-color: #555;
+    @include font(.14rem, #FFFFFF);
+  }
 }
 // 顶部背景(原设计图)
 // .header{

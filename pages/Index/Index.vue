@@ -6,7 +6,13 @@
     </nav-bar>
 
     <!-- banner -->
-    <view class="banner"></view>
+    <view class="banner">
+      <swiper indicator-dots class="swiper">
+        <swiper-item v-for="item in bannerList" :key="item.url">
+          <image :src="item.url" />
+        </swiper-item>
+      </swiper>
+    </view>
 
     <!-- 导航按钮 -->
     <home-nav />
@@ -67,15 +73,24 @@
 		data: () => ({
       category: 1,
       classList: classList,
-      taskList: taskList
+      taskList: taskList,
+      bannerList: []
     }),
 		computed: {
 			...mapState(['global'])
     },
     methods: {
+      // 请求banner
+      async handleReqBanner () {
+        const res = await this.$api.getSliderList()
+        this.bannerList = res.data.data
+      },
       handleCalendarChange (e) {
         console.log(e)
       }
+    },
+    onLoad () {
+      this.handleReqBanner()
     }
 	}
 </script>
@@ -84,6 +99,11 @@
 .banner{
   height: 2rem;
   background-color: #FB544F;
+
+  .swiper{
+    width: 100%;
+    height: 100%;
+  }
 }
 .insist{
   width: 100%;

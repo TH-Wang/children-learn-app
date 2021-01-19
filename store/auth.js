@@ -10,5 +10,11 @@ export default {
       state.token = data
       localStorage.setItem('token', data)
     }
+  },
+
+  getters: {
+    isLogin (state) {
+      return state.token ? true : false
+    }
   }
 }

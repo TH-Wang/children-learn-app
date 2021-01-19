@@ -68,6 +68,7 @@ $radius: .04rem;
 
 .container{
   position: relative;
+  display: inline-block;
 }
 
 .dropmenu{
