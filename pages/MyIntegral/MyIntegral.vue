@@ -11,9 +11,9 @@
       <view class="card">
         <!-- 上方信息 -->
         <view class="detail">
-          <view class="integral">300</view>
+          <view class="integral">{{resData?resData.total:300}}</view>
           <view class="tag">当前积分</view>
-          <view class="description">上次更新12月17日</view>
+          <view class="description">上次更新{{resData.data?resData.data[0].created_at:'12月17日'}}</view>
         </view>
         <!-- 操作按钮 -->
         <view class="handle-button">点击更新</view>
@@ -26,8 +26,8 @@
       <image class="avatar" src="" mode="aspectFill" />
       <!-- 详细信息 -->
       <view class="info">
-        <view class="info-main">{{item.title}}</view>
-        <view class="info-description">{{item.content}}</view>
+        <view class="info-main">{{item.remark}}</view>
+        <view class="info-description">积分+{{item.sum}}</view>
       </view>
       <!-- 按钮 -->
       <view v-if="!item.finish" class="to-finish-button">去完成</view>
@@ -37,7 +37,7 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-
+import moment from '@/components/moment/moment.min.js'
 export default {
   components: { 'nav-bar': NavBar },
   data: () => ({
@@ -45,8 +45,35 @@ export default {
       { id: 1, title: '会员中心', content: '充值会员奖励100积分', finish: true },
       { id: 2, title: '学习任务', content: '上传作业奖励100积分', finish: false },
       { id: 3, title: '阅读文章', content: '首次阅读文章奖励500积分', finish: false }
-    ]
-  })
+    ],
+    resData:{}
+  }),
+  methods: {
+			async handleReq() {
+        const res = await this.$api.getMemberScore();
+				console.log(res.data.data);
+				this.resData = haddleStr(res.data.data);
+				let arr = [];
+				res.data.data.data.map(item=>{
+					 arr.push(
+					   Object.assign(item,{finish:true})
+					 )
+				})
+				this.list = arr;
+				function haddleStr(res){
+					res.data[0].created_at = moment(res.data[0].created_at).format("M月DD日")
+					// let end = moment().format("YYYY-MM-DD HH-mm-ss");
+					// let start = res.data[0].created_at;
+					// res.data[0].created_at = end.diff(start, 'hours');
+					return res
+				}
+        console.log(res.data.data);
+			},
+		},
+  onLoad() {
+    this.handleReq();
+  },
+
 }
 </script>
 

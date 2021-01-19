@@ -15,6 +15,9 @@ export default {
   getters: {
     isLogin (state) {
       return state.token ? true : false
-    }
+    },
+		token: (state,data) => {
+			return data
+		}
   }
 }

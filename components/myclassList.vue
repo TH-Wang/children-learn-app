@@ -4,10 +4,10 @@
 			<!-- 标题部分 -->
 			<view class="content-tit">
 				<view class="title">
-					<text class="type">{{listItem.type}}</text>
-					{{listItem.className}}
+					<text class="type">{{listItem.title}}</text>
+					[{{listItem.render_desc}}]{{listItem.short_description}}
 				</view>
-				<view class="is-tuijian" v-if="listItem.isTuijian&&!listItem.isWrong">
+				<view class="is-tuijian" v-if="listItem.is_rec&&!listItem.isWrong">
 					
 				</view>
 			</view>
@@ -24,20 +24,20 @@
 			<view v-else>
 				<!-- 收藏人数，课程 -->
 				<view class="content-pelass">
-					{{listItem.classMsg}}
+					<text v-if="listItem.user_count">共</text>{{listItem.user_count}}<text v-if="listItem.user_count">人收藏</text>，{{listItem.category.name}}
 				</view>
 				<!-- 老师和价格 -->
 				<view class="content-thermoy">
 					<view class="teacher">
 						<view class="t-img">
-							<image :src="listItem.teacherImg" mode=""></image>
+							<image :src="listItem.thumb" mode=""></image>
 						</view>
 						<text class="t-name">
 							{{listItem.teacherName}}
 						</text>
 					</view>
 					<view class="price">
-						￥{{listItem.price}}
+						￥{{listItem.charge}}
 					</view>
 				</view>
 			</view>
@@ -65,7 +65,6 @@
 		}
 	}
 </script>
-
 <style lang="scss">
 .list-item{
 	width: 3.43rem;
