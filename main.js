@@ -4,6 +4,7 @@ import store from './store'
 import Toast from './wxcomponents/vant/toast/toast'
 import Icon from './wxcomponents/vant/icon/index.vue'
 import asyncUni from './utils/asyncUni'
+import './node_modules/moment/min/locales'
 import api from './api'
 
 Vue.config.productionTip = false

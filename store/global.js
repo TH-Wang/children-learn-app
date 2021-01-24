@@ -2,9 +2,11 @@ const category = localStorage.getItem('category') || null
 
 export default {
   state: {
+    userInfo: {},
     category: category,
     categories: [],
-    courseList: []
+    courseList: [],
+    rolesList: []
   },
 
   mutations: {
@@ -40,6 +42,11 @@ export default {
         i => i.id === el.id || new RegExp(el.like, 'g').test(i.title)
       )
       return result ? result.id : null
+    },
+    // vip身份
+    vipType (state) {
+      const role = state.rolesList.find(i => i.id === state.userInfo.role_id)
+      return role ? role.name : '普通用户'
     }
   }
 }

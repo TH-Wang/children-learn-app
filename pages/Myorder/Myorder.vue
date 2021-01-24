@@ -33,9 +33,10 @@
 		},
 		methods:{
 			async handleReq() {
+        uni.showLoading({title: '加载中'})
 			  const res = await this.$api.getMemberOrders();
 				this.orderList = res.data.data.data;
-			  console.log(this.orderList);
+        uni.hideLoading()
 			},
 		},
 		onLoad() {

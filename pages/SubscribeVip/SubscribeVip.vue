@@ -8,13 +8,13 @@
     <view class="header">
       <!-- 用户会员信息 -->
       <view class="image-cell">
-        <image class="avatar" src="" mode="aspectFill" />
+        <image class="avatar" :src="info.avatar" mode="aspectFill" />
         <view class="info">
           <view class="info-main">
-            J先生
-            <text class="tag">体验会员</text>
+            {{info.nick_name}}
+            <text class="tag">{{vipType}}</text>
           </view>
-          <view class="info-description">您当前为免费会员，购买后有效期顺延</view>
+          <view class="info-description">{{vipDesc}}</view>
         </view>
       </view>
     </view>
@@ -26,15 +26,17 @@
     <view class="options">
       <view
         :class="{'options-item': true, 'options-active': chooseId === item.id}"
-        v-for="item in options"
+        v-for="item in global.rolesList"
         :key="item.id"
-        @click="chooseId = item.id"
-      >
-        <text class="time">{{item.time}}</text>
-        <text class="price">￥{{item.price}}</text>
-        <text class="ori-price">{{item.oriPrice}}</text>
+        @click="chooseId = item.id">
+        <text class="time">{{item.expire_days}}天</text>
+        <text class="price">￥{{item.charge}}</text>
+        <text class="name">{{item.name}}</text>
       </view>
     </view>
+
+    <!-- description -->
+    <view class="desc">{{desc}}</view>
 
     <!-- footer -->
     <view class="footer-button">立即开通</view>
@@ -43,17 +45,35 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   components: { 'nav-bar': NavBar },
   data: () => ({
-    chooseId: 2,
-    options: [
-      { id: 1, time: '1个月', price: 99, oriPrice: 120 },
-      { id: 2, time: '3个月', price: 199, oriPrice: 299 },
-      { id: 3, time: '12个月', price: 599, oriPrice: 899 },
-    ]
-  })
+    chooseId: 2
+  }),
+  computed: {
+    ...mapState(['global']),
+    ...mapGetters(['vipType']),
+    info () {
+      return this.global.userInfo
+    },
+    vipDesc () {
+      const tip = {
+        0: '您还不是本站会员哦',
+        1: '您当前为体验会员，购买后有效期顺延',
+        2: '您已购买年度会员'
+      }
+      return tip[this.global.userInfo.role_id]
+    },
+    desc () {
+      const vip = this.global.rolesList.find(item => item.id === this.chooseId)
+      return vip ? vip.desc_rows.join('\n') : ''
+    }
+  },
+  onLoad () {
+    console.log(this.global.rolesList)
+  }
 }
 </script>
 
@@ -136,6 +156,9 @@ export default {
       margin: .06rem;
       @include font(.24rem, #E96056, bold);
     }
+    .name{
+      @include font(.16rem, #555555, bold);
+    }
     .ori-price{
       @include font(.14rem, #999999);
       text-decoration: line-through;
@@ -146,6 +169,12 @@ export default {
     background-color: #FFF8F8;
     border: 1px solid #E96056;
   }
+}
+
+// 会员描述
+.desc{
+  margin: .25rem .16rem .1rem;
+  color: #444444;
 }
 
 // 底部按钮

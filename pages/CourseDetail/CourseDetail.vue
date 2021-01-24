@@ -36,7 +36,6 @@
 import Icon from '@/wxcomponents/vant/icon/index.vue'
 import NavBar from '@/components/NavBar'
 import PageTitle from '@/components/HomeHeader'
-import PlayVideo from '@/components/yfs-video/yfs-video'
 
 export default {
   components: {

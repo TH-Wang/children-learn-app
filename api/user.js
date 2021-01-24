@@ -9,8 +9,9 @@ export default {
   getMemberMsgList,
 	msgRead,
 	msgAllRead,
-	getMemberOrders
-
+  getMemberOrders,
+  inviteUsers,
+  promoCode
   // getMemberMistake
 }
 
@@ -45,7 +46,7 @@ function getMemberOrders (parmas) {
 // *****用户信息中心*******
 // 获取用户未读消息数量
 function getMemberMsgList () {
-  return http.get('/member/unreadNotificationCount')
+  return http.get('/member/messages')
 }
 
 // 消息标记已读
@@ -56,4 +57,17 @@ function msgRead (notificationId) {
 // 消息全部标记已读
 function msgAllRead () {
   return http.get('/member/notificationMarkAllAsRead')
+}
+
+// 我的邀请用户
+function inviteUsers () {
+  return http.get('/member/inviteUsers', {
+    page: 1,
+    page_size: 100
+  })
+}
+
+// 生成邀请码
+function promoCode () {
+  return http.get('/member/promoCode')
 }

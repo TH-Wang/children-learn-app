@@ -41,35 +41,31 @@ import moment from '@/components/moment/moment.min.js'
 export default {
   components: { 'nav-bar': NavBar },
   data: () => ({
-    list: [
-      { id: 1, title: '会员中心', content: '充值会员奖励100积分', finish: true },
-      { id: 2, title: '学习任务', content: '上传作业奖励100积分', finish: false },
-      { id: 3, title: '阅读文章', content: '首次阅读文章奖励500积分', finish: false }
-    ],
+    list: [],
     resData:{}
   }),
   methods: {
-			async handleReq() {
-        const res = await this.$api.getMemberScore();
-				console.log(res.data.data);
-				this.resData = haddleStr(res.data.data);
-				let arr = [];
-				res.data.data.data.map(item=>{
-					 arr.push(
-					   Object.assign(item,{finish:true})
-					 )
-				})
-				this.list = arr;
-				function haddleStr(res){
-					res.data[0].created_at = moment(res.data[0].created_at).format("M月DD日")
-					// let end = moment().format("YYYY-MM-DD HH-mm-ss");
-					// let start = res.data[0].created_at;
-					// res.data[0].created_at = end.diff(start, 'hours');
-					return res
-				}
-        console.log(res.data.data);
-			},
-		},
+    async handleReq() {
+      const res = await this.$api.getMemberScore();
+      console.log(res.data.data);
+      this.resData = haddleStr(res.data.data);
+      let arr = [];
+      res.data.data.data.map(item=>{
+          arr.push(
+            Object.assign(item,{finish:true})
+          )
+      })
+      this.list = arr;
+      function haddleStr(res){
+        res.data[0].created_at = moment(res.data[0].created_at).format("M月DD日")
+        // let end = moment().format("YYYY-MM-DD HH-mm-ss");
+        // let start = res.data[0].created_at;
+        // res.data[0].created_at = end.diff(start, 'hours');
+        return res
+      }
+      console.log(res.data.data);
+    },
+  },
   onLoad() {
     this.handleReq();
   },

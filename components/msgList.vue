@@ -1,28 +1,26 @@
 <template>
-	<view class="msg-page">
-			<view class="list-item">
-				 <view class="tx-img">
-				 	 <image src="" mode=""></image>
-					 <view class="msg-num">{{listItem.unread}}</view>
-				 </view>
-				 <view class="msg-detail">
-				 	 <view class="tit-time">
-				 	 	<view class="title" :style="listItem.isVip?'color:#E96056;':''">
-				 	 		{{listItem.msgFrom}}
-				 	 	</view>
-						<view class="time-ago">
-							{{listItem.timeAgo}}
-						</view>
-				 	 </view>
-					 <view class="jifen">
-					 	{{listItem.msg}}
-					 </view>
-				 </view>
-			</view>
-	</view>
+  <view class="list-item">
+      <!-- <view class="tx-img">
+        <image src="" mode=""></image>
+        <view class="msg-num">{{listItem.unread}}</view>
+      </view> -->
+    <view class="msg-detail">
+      <view class="tit-time">
+        <view class="title" :style="listItem.isVip?'color:#E96056;':''">
+          {{listItem.data.message}}
+        </view>
+        <view class="time-ago">{{timeAgo}}</view>
+      </view>
+      <!-- <view class="jifen">
+        {{listItem.msg}}
+      </view> -->
+    </view>
+  </view>
 </template>
 <!-- ctrl + 】 在元素外面包裹标签  按住ctrl选中多个光标-->
 <script>
+  import moment from 'moment'
+
 	export default {
 		props: {
 		  listItem: {
@@ -30,12 +28,13 @@
 		    default: () => ({})
 		  }
 		},
-		data() {
-			return {
-				
-				
-			};
-		}
+		computed: {
+      timeAgo () {
+        const time = this.listItem.created_at
+        moment.locale('zh-cn')
+        return time ? moment(time).fromNow() : ''
+      }
+    }
 	}
 </script>
 
@@ -74,7 +73,7 @@
 		}
 	}
 	.msg-detail{
-		margin-left: 0.165rem;
+		// margin-left: 0.165rem;
 		flex: 1;
 		.tit-time{
 			display: flex;

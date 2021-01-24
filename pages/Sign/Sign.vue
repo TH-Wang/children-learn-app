@@ -3,7 +3,10 @@
 
     <!-- 顶部标题 -->
     <view class="header">
-      <view class="headline">同学你好，</view>
+      <view class="headline">
+        <span>同学你好，</span>
+        <van-icon name="cross" size=".20rem" @click="handleReturn" />
+      </view>
       <view class="subline">欢迎来到听说读写</view>
 
       <!-- 描述 -->
@@ -78,13 +81,16 @@
 
 <script>
 import { isEmpty } from 'lodash'
+import Icon from '@/wxcomponents/vant/icon/index.vue'
 import Input from '@/components/Input'
 import SubmitButton from '@/components/submit'
 import vertifyCodeMixin from '@/mixins/vertify-code'
+import LoginReturn from '@/mixins/login-return'
 
 export default {
-  mixins: [vertifyCodeMixin],
+  mixins: [vertifyCodeMixin, LoginReturn],
   components: {
+    'van-icon': Icon,
     'custom-input': Input,
     'submit-button': SubmitButton
   },
@@ -186,7 +192,7 @@ export default {
       return true
     }
   },
-  created () {
+  onLoad () {
     this.reqCodeImage()
   }
 }

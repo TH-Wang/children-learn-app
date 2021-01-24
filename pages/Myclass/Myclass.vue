@@ -35,9 +35,10 @@ export default {
   },
   methods: {
 		async handleReq() {
+      uni.showLoading({title: '加载中'})
 		  const res = await this.$api.getMemberCourses();
-			this.myClassList = res.data.data.data;
-		  console.log(this.myClassList);
+      this.myClassList = res.data.data.data;
+      uni.hideLoading()
 		},
    //  async handleReq() {
    //    const res = await this.$api.getMemberCourses();

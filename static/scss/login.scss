@@ -15,9 +15,11 @@ $normal-text: #FFAAA8;
 
   // 顶部标题
   .header{
+    width: 100%;
     
     .headline{
       @include font(.33rem, #FFFFFF, bold);
+      @include flex(space-between, flex-start);
       margin-bottom: .1rem;
     }
 

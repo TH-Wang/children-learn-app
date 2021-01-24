@@ -112,7 +112,21 @@
 								"navigationStyle":"default"
             }
             
-        }
+        },
+    {
+      "path": "pages/Setting/Setting",
+      "style": {
+        "navigationStyle": "default",
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/Description/Description",
+      "style": {
+        "navigationStyle": "default",
+        "navigationBarTitleText": ""
+      }
+    }
     ],
   "globalStyle": {
     "navigationBarBackgroundColor": "#FFFFFF",

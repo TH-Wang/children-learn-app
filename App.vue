@@ -25,11 +25,17 @@ export default {
       if (this.global.category) data.category = this.global.category
       const res = await this.$api.getCoursesList(data)
       this.setGlobalData({ courseList: res.data.data.data })
+    },
+    // 请求会员列表
+    async getVipList () {
+      const res = await this.$api.getRolesList()
+      this.setGlobalData({ rolesList: res.data.data })
     }
   },
   onLaunch: async function() {
     await this.reqCategories()
     await this.reqCourseList(this.auth.token)
+    await this.getVipList()
   },
   onShow: function() {
     

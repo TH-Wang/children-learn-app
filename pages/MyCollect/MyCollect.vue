@@ -16,9 +16,10 @@
 		},
 		methods: {
 			async handleReq() {
+        uni.showLoading({title: '加载中'})
 				const res = await this.$api.getMemberLikeCourses();
 				this.myClassList = res?res.data.data.data:[];
-				console.log(this.myClassList)
+        uni.hideLoading()
 			},
 		},
 		components: {

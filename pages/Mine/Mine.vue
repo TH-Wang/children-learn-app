@@ -1,7 +1,16 @@
 <template>
   <view>
     <!-- header -->
-    <view class="header">
+    <view v-if="isLogin" class="header-info">
+      <view class="avatar">
+        <image :src="info.avatar" lazy-load mode="aspectFill" />
+      </view>
+      <view class="info">
+        <view class="username">{{info.nick_name}}</view>
+        <view class="vip-tag">{{vipType}}</view>
+      </view>
+    </view>
+    <view v-else class="header">
       <view class="panda">
         <image src="@/static/mine/panda.png" mode="aspectFit" />
       </view>
@@ -23,7 +32,7 @@
         class="grid-item"
         v-for="(item, index) in config.grid"
         :key="index"
-        @click="index==0?handleOrderLink():handleLink(item[0])"
+        @click="handleLink(item[0])"
       ><image :src="item[1]" mode="aspectFit" />
        <text class="title">{{item[2]}}</text>
       </view>
@@ -43,7 +52,7 @@
     </view>
 
     <!-- setting -->
-    <view class="card setting">
+    <view class="card setting" @click="handleLink('/pages/Setting/Setting')">
       <image src="@/static/mine/setting.png" mode="aspectFit" />
       <text class="label">设置</text>
       <van-icon name="arrow" size=".13rem" color="#999999" />
@@ -52,49 +61,84 @@
 </template>
 
 <script>
+import { isEmpty } from 'lodash'
+import { mapGetters, mapState } from 'vuex';
 import { grid, list } from './config'
 
 export default {
   data: () => ({
-    config: { grid, list },
-		isLogin:false
+    config: { grid, list }
   }),
+  computed: {
+    ...mapState(['global']),
+    ...mapGetters(['isLogin', 'vipType']),
+    info () {
+      return this.global.userInfo
+    }
+  },
   methods: {
-    // 跳转链接
-    handleLink: url => uni.navigateTo({url}),
-		// 判断是否登录
-		handleOrderLink(){
-			if(this.isLogin){
-				uni.navigateTo({
-				    url: '/pages/Myorder/Myorder'
-				});
-				console.log(11111111111);
-			}else{
-				uni.navigateTo({
-				    url: '/pages/Login/Login'
-				});
-			}
-			
+		// 跳转页面
+		handleLink(path){
+      if (!this.isLogin) uni.navigateTo({ url: '/pages/Login/Login' })
+      if (isEmpty(path)) {
+        uni.showToast({ title: '功能尚未开放~', icon: 'none' })
+      } else uni.navigateTo({ url: path })
 		},
 		async getMemberDetail () {
 			const res = await this.$api.getMemberDetail()
-			console.log(res.data.data)
+      this.$store.commit('setGlobalData', { userInfo: res.data.data })
 		}
   },
   onLoad() {
-		this.getMemberDetail();
-		if(this.$store.state.auth.token){
-			this.isLogin = true;
-		}
-		// console.log(this.$store.getters.token);
-		console.log(this.$store.state.auth.token);
-		console.log(this.isLogin);
-    
-	}
+    if (this.isLogin) {
+		  this.getMemberDetail();
+    } 
+  },
+  onShow () {
+    if (this.isLogin && isEmpty(this.global.userInfo)) {
+      this.getMemberDetail();
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+// 用户信息
+.header-info {
+  height: 1.2rem;
+  background-color: #FB544F;
+  padding: 0 .16rem;
+  box-sizing: border-box;
+  @include flex(flex-start, center);
+
+  .avatar{
+    width: .64rem;
+    height: .64rem;
+    margin-right: .16rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    image{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .info{
+    height: .6rem;
+    @include flex(space-between, flex-start, column);
+    .username{
+      color: #FFFFFF;
+      font-weight: bold;
+    }
+    .vip-tag{
+      padding: .03rem .1rem;
+      border-radius: .2rem;
+      background-color: #4E5065;
+      @include font(.13rem, #FFFFFF);
+    }
+  }
+}
 // 顶部
 .header{
   margin: 0 auto;
