@@ -37,7 +37,7 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import moment from '@/components/moment/moment.min.js'
+import moment from 'moment'
 export default {
   components: { 'nav-bar': NavBar },
   data: () => ({

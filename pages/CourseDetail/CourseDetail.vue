@@ -9,7 +9,6 @@
 
     <!-- header -->
     <view class="header">
-      <!-- <play-video src="@/static/video/test.mp4" /> -->
       <video
         class="video"
         id="playerBox"
@@ -41,8 +40,7 @@ export default {
   components: {
     NavBar,
     PageTitle,
-    'van-icon': Icon,
-    PlayVideo
+    'van-icon': Icon
   },
   data: () => ({
     id: null,
@@ -71,12 +69,9 @@ export default {
       // 默认第一个视频为当前播放视频
       this.curVideoId = this.videos[0].id
       // 如果有进度信息
-      if (data.video_watched_progress.length) {
-        // 获取第一个视频的观看进度
-        this.curProgress = data.video_watched_progress[this.videos[0].id]
-        // 当前视频的观看时长
-        this.curDuration = this.curProgress.watch_seconds
-      }
+      this.curProgress = data.video_watched_progress[this.id]
+      // 当前视频的观看时长
+      this.curDuration = this.curProgress.watch_seconds
       // 请求第一个视频的播放地址
       this.handleReqResource()
     },
@@ -87,7 +82,6 @@ export default {
     },
     playTimeUpdate(e) {
       if (e.detail.currentTime - this.curDuration >= 10) {
-        console.log(e.detail.currentTime, this.curDuration)
         this.curDuration = e.detail.currentTime;
         this.$api.videoRecord(this.record.id, e.detail.currentTime)
       }

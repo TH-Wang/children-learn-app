@@ -5,6 +5,8 @@ import course from './course'
 import video from './video'
 import other from './other'
 import role from './role'
+import order from './order'
+import extend from './extend'
 
 export default {
   ...auth,
@@ -12,5 +14,7 @@ export default {
   ...course,
   ...video,
   ...other,
-  ...role
+  ...role,
+  ...order,
+  ...extend
 }

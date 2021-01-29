@@ -7,9 +7,9 @@
 
     <!-- banner -->
     <view class="banner">
-      <swiper indicator-dots class="swiper">
-        <swiper-item v-for="item in bannerList" :key="item.url">
-          <image :src="item.url" />
+      <swiper indicator-dots autoplay circular :interval="3000" class="swiper">
+        <swiper-item v-for="item in bannerList" :key="item.thumb">
+          <image :src="item.thumb" mode="aspectFill" />
         </swiper-item>
       </swiper>
     </view>
@@ -90,7 +90,14 @@
       }
     },
     onLoad () {
-      this.handleReqBanner()
+      try {
+        this.handleReqBanner()
+      } catch (error) {
+        uni.showModal({
+          title: '信息',
+          content: error
+        })
+      }
     }
 	}
 </script>
@@ -103,6 +110,11 @@
   .swiper{
     width: 100%;
     height: 100%;
+
+    image{
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 .insist{

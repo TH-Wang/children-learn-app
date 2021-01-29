@@ -33,9 +33,6 @@
 		  }
 	  },
 	}
-	// 页面动态改变fsize
-	document.documentElement.style.fontSize = 26.666667+'vw';
-	document.getElementsByTagName('body')[0].style['font-size'] = 16 + 'px';
 </script>
 
 <style lang="scss" scoped>

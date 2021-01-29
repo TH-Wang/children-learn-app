@@ -1,32 +1,34 @@
 <template>
   <view>
-    <!-- 状态栏 -->
-    <view class="status-bar" :style="{'background-color': navBarBackground}"/>
+    <view class="container" :style="{'background-color': navBarBackground}">
+      <!-- 状态栏 -->
+      <view class="status-bar"/>
 
-    <!-- 导航栏主体 -->
-    <view :class="[`nav-bar-${navBarColor}`]" :style="{'background-color': navBarBackground}">
-      
-      <!-- 左侧内容 -->
-      <view class="prefix">
-        <!-- 返回箭头 -->
-        <view class="back-icon" @click="handleGoBack">
-          <van-icon v-if="backArrow" size=".15rem" name="arrow-left" style="padding-right:.05rem" />
+      <!-- 导航栏主体 -->
+      <view :class="[`nav-bar-${navBarColor}`]">
+
+        <!-- 左侧内容 -->
+        <view class="prefix">
+          <!-- 返回箭头 -->
+          <view class="back-icon" @click="handleGoBack">
+            <van-icon v-if="backArrow" size=".18rem" name="arrow-left" style="padding-right:.05rem" />
+          </view>
+
+          <!-- 左侧插槽 -->
+          <view class="slot slot-left" @click="$emit('click-left')">
+            <slot name="left" />
+          </view>
         </view>
 
-        <!-- 左侧插槽 -->
-        <view class="slot slot-left" @click="$emit('click-left')">
-          <slot name="left" />
+        <!-- 中间标题 -->
+        <view class="main" @click="$emit('click')">
+          <slot />
         </view>
-      </view>
 
-      <!-- 中间标题 -->
-      <view class="main" @click="$emit('click')">
-        <slot />
-      </view>
-
-      <!-- 右侧内容 -->
-      <view class="slot slot-right" @click="$emit('click-right')">
-        <slot name="right" />
+        <!-- 右侧内容 -->
+        <view class="slot slot-right" @click="$emit('click-right')">
+          <slot name="right" />
+        </view>
       </view>
     </view>
 
@@ -70,11 +72,11 @@ export default {
   }),
   computed: {
     navBarBackground () {
-      if (this.placeholder) return '#FFFFFF'
+      if (this.placeholder) return '#FAFAFA'
       else {
         // 如果导航栏划出顶部
         if (this.scrollHeight - this.statusHeight > 45) {
-          return '#FFFFFF'
+          return '#FAFAFA'
         } else return 'transparent'
       }
     },
@@ -104,7 +106,7 @@ export default {
       const color = this.scrollHeight - this.statusHeight > 45
         ? 'dark'
         : 'light'
-      uni.setStatusBarStyle({ style: color })
+      plus.navigator.setStatusBarStyle(color)
     },
 		// #endif
   }
@@ -113,6 +115,16 @@ export default {
 
 <style lang="scss" scoped>
 $nav-bar-height: .44rem;
+
+// 状态栏+导航栏容器
+.container{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  transition: all .15s;
+}
 
 // 状态栏
 .status-bar{
@@ -132,11 +144,6 @@ $nav-bar-height: .44rem;
   padding-right: .15rem;
   box-sizing: border-box;
   @include flex(space-between, center);
-  transition: all .15s;
-  position: fixed;
-  top: var(--status-bar-height);
-  left: 0;
-  z-index: 99;
 
   // 左侧内容
   .prefix{ @include flex; }
@@ -151,15 +158,18 @@ $nav-bar-height: .44rem;
 
   // 中间标题
   .main{
+    width: 80%;
+    height: $nav-bar-height;
+    line-height: $nav-bar-height;
+    transition: all .15s;
     font-weight: bold;
     font-size: .18rem;
     text-align: center;
-    @include position;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: -1;
-    width: 100%;
-    height: $nav-bar-height;
-    line-height: $nav-bar-height;
-    transition: all .05s;
   }
 
   // 插槽内容

@@ -4,14 +4,14 @@
       v-if="active"
       name="star"
       color="yellow"
-      :size="16"
+      size=".18rem"
       @click="$emit('change', false)"
     />
     <van-icon
       v-else
       name="star-o"
       color="white"
-      :size="16"
+      size=".18rem"
       @click="$emit('change', true)"
     />
   </div>

@@ -79,7 +79,11 @@ export default {
   methods: {
 		// 跳转页面
 		handleLink(path){
-      if (!this.isLogin) uni.navigateTo({ url: '/pages/Login/Login' })
+      // 如果未登录，则跳转到登录页面
+      if (!this.isLogin) {
+        uni.navigateTo({ url: '/pages/Login/Login' })
+        return
+      }
       if (isEmpty(path)) {
         uni.showToast({ title: '功能尚未开放~', icon: 'none' })
       } else uni.navigateTo({ url: path })

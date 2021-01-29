@@ -26,6 +26,8 @@ export default {
 	margin: 0 auto;
 	margin-top: -0.25rem;
   @include flex(space-between, center);
+  position: relative;
+  z-index: 10;
 
   .list-item{
     flex: 1;

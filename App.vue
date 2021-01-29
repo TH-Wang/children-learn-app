@@ -4,7 +4,10 @@ import { isEmpty } from 'lodash'
 
 export default {
   computed: {
-    ...mapState(['global', 'auth'])
+    ...mapState(['global', 'auth']),
+    category () {
+      return this.global.category
+    }
   },
   methods: {
     ...mapMutations(['setGlobalData', 'setLocalStorage']),
@@ -38,10 +41,15 @@ export default {
     await this.getVipList()
   },
   onShow: function() {
-    
+
   },
   onHide: function() {
-    
+
+  },
+  watch: {
+    category: function (newVal) {
+      this.reqCourseList()
+    }
   }
 }
 </script>
@@ -55,5 +63,9 @@ html{
 body{
   font-size: .16rem;
   font-family: 'PingFang';
+}
+
+uni-swiper .uni-swiper-dots-horizontal{
+  bottom: 32px !important;
 }
 </style>

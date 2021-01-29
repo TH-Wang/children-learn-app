@@ -9,18 +9,18 @@
 			<view class="item-content">
 				<view class="content-text">
 					<view class="content-name">
-						{{listData.title}}
-					</view>
-					<view class="content-teacher">
-						<view class="t-teacher">
-							{{listData.teacher}}
-						</view>
+						<view class="content-title">{{listData.title}}</view>
 						<view class="t-progress">
 							<image src="@/static/icons/pen.png" mode=""></image>
 							<text v-if="listData.isTbx">{{listData.progress||0}}</text>
 							<text v-else>{{listData.finishNumber||0}}/{{listData.sumNumber||0}}</text>
 						</view>
 					</view>
+					<!-- <view class="content-teacher">
+						<view class="t-teacher">
+							{{listData.teacher}}
+						</view>
+					</view> -->
 					<view class="content-btn">
 						<view class="b-littWords">
 							{{duration}}
@@ -140,26 +140,27 @@
 				border-radius: 0.1rem;
 				margin-top: 0.11rem;
 				.content-text{
-					 padding: 0.08rem 0.16rem 0 0.89rem;
+          padding: 0.05rem 0.16rem 0 0.89rem;
+          box-sizing: border-box;
+          height: 100%;
+          @include flex(space-around, flex-start, column);
+
 					.content-name {
-						font-size: 0.14rem;
-						font-weight: bold;
-						color: #666666;
-					}
-					.content-teacher {
-						display: flex;
-						flex-direction: row;
-						justify-content: space-between;
-						height: 0.3rem;
-						line-height: 0.25rem;
-						.t-teacher {
-							font-size: 0.12rem;
-							color: #666666;
-						}
-						.t-progress {
+            width: 100%;
+            @include flex(space-between, center);
+
+            .content-title{
+              font-size: 0.14rem;
+              font-weight: bold;
+              color: #666666;
+              max-width: 1.8rem;
+              @include ellipsis(2);
+            }
+
+            .t-progress {
 							display: flex;
               align-items: center;
-              transform: translateY(-0.15rem);
+              // transform: translateY(-0.15rem);
 							image {
 								width: 0.205rem;
 								height: 0.205rem;
@@ -172,7 +173,19 @@
 							}
 						}
 					}
+					.content-teacher {
+						display: flex;
+						flex-direction: row;
+						justify-content: space-between;
+						height: 0.3rem;
+						line-height: 0.25rem;
+						.t-teacher {
+							font-size: 0.12rem;
+							color: #666666;
+						}
+					}
 					.content-btn {
+            width: 100%;
 						display: flex;
 						flex-direction: row;
 						justify-content: space-between;

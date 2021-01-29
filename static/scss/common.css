@@ -1,0 +1,130 @@
+.box {
+  width: 100%;
+  height: auto;
+  float: left;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.group-box {
+  width: 100%;
+  height: auto;
+  float: left;
+  margin-bottom: 15px;
+}
+
+.group-box .title {
+  width: 100%;
+  height: auto;
+  float: left;
+  box-sizing: border-box;
+  padding-left: 15px;
+  font-size: 12px;
+  color: #999999;
+  line-height: 30px;
+}
+
+.group-box .group-item {
+  width: 100%;
+  height: auto;
+  float: left;
+  margin-bottom: 1px;
+  display: flex;
+  box-sizing: border-box;
+  padding: 5px 15px;
+  background-color: white;
+}
+
+.group-box .group-item .name {
+  width: 150px;
+  height: auto;
+  float: left;
+  line-height: 36px;
+  font-size: 15px;
+  color: #333333;
+}
+
+.group-box .group-item .value {
+  flex: 1;
+  text-align: right;
+  line-height: 36px;
+  font-size: 14px;
+  color: #999999;
+}
+
+.group-box .group-item .value .u-image, .group-box .group-item .value u-image {
+  display: inline-block;
+}
+
+.group-box .group-item .value input {
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  border: 0;
+  text-align: right;
+  outline: none;
+  font-size: 14px;
+}
+
+.group-box .group-item .value input::placeholder {
+  color: #CCCCCC;
+}
+
+.group-box .group-item .captcha {
+  width: auto;
+  height: auto;
+  line-height: 36px;
+  margin-left: 30px;
+}
+
+.group-box .group-item .captcha .u-image {
+  display: inline-block;
+}
+
+.group-box .group-item .buttons {
+  width: auto;
+  height: auto;
+  line-height: 36px;
+  margin-left: 30px;
+}
+
+.group-box .group-item .buttons .send-sms-button, .group-box .group-item .buttons .promo-code-check-button {
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 3px;
+  text-align: center;
+  color: white;
+  background-color: #FB5852;
+  font-size: 14px;
+  border-radius: 3px;
+  float: left;
+}
+
+.group-box .group-item .buttons .promo-code-check-button {
+  width: 50px;
+}
+
+.save-button-box {
+  width: 100%;
+  height: auto;
+  float: left;
+  margin-top: 15px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 15px;
+}
+
+.save-button-box .save-button {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: white;
+  background-color: #FB5852;
+  font-size: 14px;
+  border-radius: 5px;
+}

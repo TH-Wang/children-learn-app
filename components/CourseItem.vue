@@ -50,7 +50,8 @@
 		methods: {
 			goShow() {
         const { id, title } = this.record
-        const url = courseType(id, title)
+        // const url = courseType(id, title)
+        const url = '/pages/Course/Course'
 				uni.navigateTo({url: `${url}?id=${id}`})
 			}
 		}

@@ -4,7 +4,7 @@
       {{text}}
       <van-icon
         name="arrow-down"
-        size=".14rem"
+        size=".16rem"
         style="margin-left:.02rem"
       />
     </view>
@@ -67,8 +67,15 @@ export default {
 $radius: .04rem;
 
 .container{
+  width: .8rem;
   position: relative;
   display: inline-block;
+
+  .title{
+    width: 100%;
+    text-align: center;
+    font-size: .15rem;
+  }
 }
 
 .dropmenu{
@@ -79,6 +86,7 @@ $radius: .04rem;
   transform: translateX(-50%);
   border-radius: $radius;
   background-color: #FFFFFF;
+  box-shadow: 0 0 .1rem 0 rgba($color: #000000, $alpha: 0.1);
   // overflow: hidden;
 
   &::before{
@@ -89,6 +97,7 @@ $radius: .04rem;
     position: absolute;
     top: -.09rem;
     left: 50%;
+    z-index: 999;
     transform: translateX(-50%);
     border-width: .05rem;
     border-style: solid;
@@ -106,9 +115,9 @@ $radius: .04rem;
   }
 
   &-item{
-    width: .7rem;
-    height: .35rem;
-    line-height: .35rem;
+    width: .8rem;
+    height: .4rem;
+    line-height: .4rem;
     @include font(.14rem, #333, $align: center);
 
     &.active{

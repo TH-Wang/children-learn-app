@@ -10,7 +10,7 @@
 			</view>
 		</view>
 
-		<view class="group-box" v-if="config.func.promoCode">
+		<view class="group-box">
 			<view class="title">优惠码</view>
 			<view class="group-item">
 				<view class="name">优惠码</view>
@@ -56,10 +56,10 @@
 			<template v-if="paymentScene !== 'mini'">
 				<view class="payment-item" @click="setPayment(item.sign)" v-for="item in payments" :key="item.sign" :class="{active: item.sign === payment}">
 					<view class="icon">
-						<u-image :src="item.icon" width="100px" mode="widthFix"></u-image>
+						<image :src="item.icon" mode="widthFix"></image>
 					</view>
 					<view class="checkstatus" v-if="item.sign === payment">
-						<u-icon name="checkmark" color="green" size="30"></u-icon>
+						<icon type="success_no_circle" color="green" size=".16rem"></icon>
 					</view>
 				</view>
 			</template>
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-	import config from '../../js/config/index.js';
+	// import config from '../../js/config/index.js';
 
 	export default {
 		data() {
@@ -103,7 +103,7 @@
 				promoCodeModel: null,
 				loading: false,
 				paymentScene: "",
-				config: config
+				// config: config
 			}
 		},
 		computed: {
@@ -121,7 +121,11 @@
 			this.goods.label = option.goods_label;
 			this.goods.type = option.goods_type;
 			this.total = this.goods.charge;
-			this.goods.tgGid = option.tg_gid || 0;
+      this.goods.tgGid = option.tg_gid || 0;
+
+      // 设置当前导航栏标题
+      const title = this.goods.label
+      uni.setNavigationBarTitle({title})
 
 			// 当前运行环境
 			let platform = process.env.VUE_APP_PLATFORM;
@@ -139,11 +143,9 @@
 		},
 		onShow() {
 			if (this.paymentScene) {
-				this.$u.api.Order.Payments({
-					scene: this.paymentScene
-				}).then(data => {
-					this.payments = data;
-					if (data.length > 0) {
+				this.$api.getPayments(this.paymentScene).then(res => {
+					this.payments = res.data.data;
+					if (res.data.data.length > 0) {
 						this.payment = this.payments[0].sign;
 					}
 				})
@@ -157,169 +159,94 @@
 			setPayment(sign) {
 				this.payment = sign;
 			},
-			payHandler() {
+			async payHandler() {
 				if (this.paymentScene === 'h5' && !this.payment) {
 					this.$u.toast('请选择支付方式');
 					return;
-				}
-				if (this.goods.type === 'vod') {
-					// 点播课程
-					this.$u.api.Order.CreateCourseOrder({
-						course_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'video') {
-					// 视频
-					this.$u.api.Order.CreateVideoOrder({
-						video_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'role') {
-					// 视频
-					this.$u.api.Order.CreateRoleOrder({
-						role_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'live') {
-					this.$u.api.Live.CreateOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'book') {
-					this.$u.api.Book.CreateOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'paper') {
-					this.$u.api.Exam.CreatePaperOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'practice') {
-					this.$u.api.Exam.CreatePracticeOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'path') {
-					this.$u.api.LearnPath.CreateOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'tg') {
-					this.$u.api.TuanGou.CreateOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode,
-						gid: this.goods.tgGid
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'ms') {
-					this.$u.api.MiaoSha.CreateOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.data.message);
-					})
-				} else if (this.goods.type === 'topic') {
-					this.$u.api.Topic.CreateOrder(this.goods.id, {
-						goods_id: this.goods.id,
-						promo_code: this.promoCode
-					}).then(data => {
-						this.orderCreatedHandler(data);
-					}).catch(e => {
-						this.$u.toast(e.message);
-					})
-				}
+        }
+        // 封装请求参数，确定接口函数
+        const data = {}
+        data.promo_code = this.promoCode
+        let key = null
+        let api = null
+        switch (this.goods.type) {
+          case 'vod':
+            key = 'course_id';
+            api = 'createCourseOrder'; break;
+          case 'video':
+            key = 'video_id';
+            api = 'createVideoOrder'; break;
+          case 'role':
+            key = 'role_id';
+            api = 'createRoleOrder'; break;
+          default:
+            key = 'goods_id';
+            api = 'createCourseOrder'
+        }
+        data[key] = this.goods.id
+        if (this.goods.type === 'tg') data.gid = this.goods.tgGid
+        // 发起请求
+        const res = await this.$api[api](data)
+        if (res.data.code === 0) {
+          this.orderCreatedHandler(res.data)
+        } else {
+          uni.showToast({title: res.data.message, icon: 'none'});
+        }
 			},
 			orderCreatedHandler(order) {
-				if (order.status_text === '已支付') {
-					// 优惠全部抵扣
-					this.$u.toast('支付成功');
-					setTimeout(() => {
-						uni.navigateBack();
-					}, 500);
-				} else {
-					// 未支付，跳转到支付网关或者调起支付
-					if (this.paymentScene === 'h5' || this.paymentScene === 'wechat') {
-						let redirect = encodeURIComponent(config.app_url + 'pages/order/success');
-						let indexUrl = encodeURIComponent(config.app_url);
-						window.location.href =
-							config.url +
-							"/api/v2/order/pay/redirect?order_id=" +
-							order.order_id +
-							"&payment_scene=" +
-							this.paymentScene +
-							"&scene=" +
-							this.paymentScene +
-							"&payment=" +
-							this.payment +
-							"&token=" +
-							uni.getStorageSync('token') +
-							"&redirect=" +
-							redirect +
-							"&cancel_redirect=" +
-							indexUrl;
-					} else if (this.paymentScene === 'mini') {
-						this.$u.api.Order.WechatMiniPay({
-							openid: '',
-							order_id: order.order_id
-						}).then(data => {
-							// 微信小程序发起支付
-						}).catch(e => {
-							this.$u.toast(e.data.message);
-						})
-					}
-				}
+        console.log('订单信息', order)
+				// if (order.status_text === '已支付') {
+				// 	// 优惠全部抵扣
+				// 	this.$u.toast('支付成功');
+				// 	setTimeout(() => {
+				// 		uni.navigateBack();
+				// 	}, 500);
+				// } else {
+				// 	// 未支付，跳转到支付网关或者调起支付
+				// 	if (this.paymentScene === 'h5' || this.paymentScene === 'wechat') {
+				// 		let redirect = encodeURIComponent(config.app_url + 'pages/order/success');
+				// 		let indexUrl = encodeURIComponent(config.app_url);
+				// 		window.location.href =
+				// 			config.url +
+				// 			"/api/v2/order/pay/redirect?order_id=" +
+				// 			order.order_id +
+				// 			"&payment_scene=" +
+				// 			this.paymentScene +
+				// 			"&scene=" +
+				// 			this.paymentScene +
+				// 			"&payment=" +
+				// 			this.payment +
+				// 			"&token=" +
+				// 			uni.getStorageSync('token') +
+				// 			"&redirect=" +
+				// 			redirect +
+				// 			"&cancel_redirect=" +
+				// 			indexUrl;
+				// 	} else if (this.paymentScene === 'mini') {
+				// 		this.$u.api.Order.WechatMiniPay({
+				// 			openid: '',
+				// 			order_id: order.order_id
+				// 		}).then(data => {
+				// 			// 微信小程序发起支付
+				// 		}).catch(e => {
+				// 			this.$u.toast(e.data.message);
+				// 		})
+				// 	}
+				// }
 			},
 			checkPromoCode() {
 				if (!this.promoCode) {
 					return;
 				}
-				this.$u.api.Order.PromoCodeCheck(this.promoCode).then(data => {
+				this.$api.promoCodeCheck(this.promoCode).then(data => {
 					if (data.can_use !== 1) {
-						this.$u.toast('当前优惠码无法使用');
+						uni.showToast({title: '当前优惠码无法使用', icon: 'none'})
 					} else {
 						this.promoCodeModel = data.promo_code;
 						this.discount = this.promoCodeModel.invited_user_reward;
 					}
-				}).catch(e => {
-					this.$u.toast(e.data.message);
+				}).catch(err => {
+					uni.showToast({title: err, icon: 'none'})
 				})
 			}
 		}
@@ -328,6 +255,15 @@
 
 <style lang="scss" scoped>
   $primary: #FB5852;
+  .box {
+    width: 100%;
+    height: auto;
+    float: left;
+  }
+
+  .mt-15 {
+    margin-top: 15px;
+  }
 
 	.goods-box {
 		width: 100%;
@@ -410,7 +346,11 @@
 			.icon {
 				width: auto;
 				height: auto;
-				margin-right: 15px;
+        margin-right: 15px;
+        
+        image{
+          width: 1rem;
+        }
 			}
 		}
 
@@ -418,11 +358,5 @@
 			flex: 1;
 			text-align: right;
 		}
-	}
-</style>
-
-<style>
-	page {
-		background-color: #F8F8F8;
 	}
 </style>

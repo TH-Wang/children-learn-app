@@ -1,4 +1,4 @@
-const token = localStorage.getItem('token')
+const token = uni.getStorageSync('token')
 
 export default {
   state: {
@@ -8,7 +8,7 @@ export default {
   mutations: {
     setToken (state, data) {
       state.token = data
-      localStorage.setItem('token', data)
+      uni.setStorageSync('token', data)
     }
   },
 

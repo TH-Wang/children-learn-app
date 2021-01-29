@@ -131,7 +131,7 @@ class Request {
     // 如果终止请求
     // return false
     if (this.safeUrl.indexOf(config.url) === -1) {
-      config.header.Authorization = `Bearer ${localStorage.getItem('token')}`
+      config.header.Authorization = `Bearer ${uni.getStorageSync('token')}`
     }
 
     // 正常进行

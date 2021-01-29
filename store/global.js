@@ -1,4 +1,4 @@
-const category = localStorage.getItem('category') || null
+const category = uni.getStorageSync('category') || null
 
 export default {
   state: {
@@ -25,7 +25,7 @@ export default {
             continue
           }
           state[key] = obj[key]
-          localStorage.setItem(key, obj[key])
+          uni.setStorageSync(key, obj[key])
         }
       }
     }

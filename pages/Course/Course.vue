@@ -45,7 +45,10 @@
       >请登录后观看</view>
       <template v-else-if="!isBuy">
         <view class="price">￥{{course.charge}}</view>
-        <view class="footer-button">购买课程</view>
+        <view
+          class="footer-button"
+          @click="handleLinkOrder"
+        >购买课程</view>
         <view
           class="footer-button vip-button"
           @click="handleLinkVip">会员免费看</view>
@@ -113,13 +116,13 @@ export default {
       const { chapters, videos, course, isBuy, isCollect } = res.data.data
       uni.hideLoading()
       this.chapterList = chapters
-      this.chapter = chapters[0].id
+      this.chapter = chapters.length ? chapters[0].id : 1
       this.videos = videos
       this.course = course
       this.cover = course.thumb
       this.isBuy = isBuy
       this.isCollect = isCollect
-      this.commonList = videos[this.chapter] || []
+      this.commonList = videos[0] || []
     },
     // 点击重试
     async handleRetry () {
@@ -148,6 +151,14 @@ export default {
     // 跳转到登录页面
     handleLinkLogin () {
       uni.navigateTo({ url: '/pages/Login/Login' })
+    },
+    // 跳转到支付页面
+    handleLinkOrder () {
+      uni.navigateTo({
+        url: '/pages/order/order?goods_id=' + this.course.id +
+          '&goods_name=' + this.course.title +
+          "&goods_label=点播课程&goods_charge=" + this.course.charge + '&goods_type=vod'
+      })
     },
     // 跳转到vip页面
     handleLinkVip () {

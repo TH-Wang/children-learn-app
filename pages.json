@@ -23,7 +23,8 @@
     {
       "path": "pages/Mine/Mine",
       "style": {
-		    "navigationStyle": "default",
+        "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
 		    "navigationBarTitleText": "个人中心",
         "usingComponents": {
           "van-icon": "/wxcomponents/vant/icon/index"
@@ -36,10 +37,19 @@
     {
       "path": "pages/CourseDetail/CourseDetail"
     },
+    {
+      "path": "pages/Order/Order",
+		  "style": {
+		    "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
+		    "navigationBarTitleText": "订单"
+		  }
+    },
 		{
 		  "path": "pages/ReadDetail/ReadDetail",
 		  "style": {
 		    "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
 		    "navigationBarTitleText": ""
 		  }
 		},
@@ -49,6 +59,7 @@
     {
       "path": "pages/listen/listen",
       "style": {
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": "听列表页",
         "enablePullDownRefresh": false
       }
@@ -60,6 +71,7 @@
       "path": "pages/SpeakDetail/SpeakDetail",
       "style": {
         "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": ""
       }
 		},
@@ -76,6 +88,7 @@
       "path": "pages/Myclass/Myclass",
       "style": {
         "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": "我的课程",
         "enablePullDownRefresh": false
       }
@@ -84,6 +97,7 @@
       "path": "pages/Mistakes/Mistakes",
       "style": {
         "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": "错题库",
         "enablePullDownRefresh": false
       }
@@ -92,6 +106,7 @@
       "path": "pages/MyCollect/MyCollect",
       "style": {
         "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": "我的收藏",
         "enablePullDownRefresh": false
       }
@@ -99,6 +114,7 @@
     {
       "path": "pages/MsgCenter/MsgCenter",
       "style": {
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": "消息中心",
         "enablePullDownRefresh": false
       }
@@ -107,6 +123,7 @@
             "path" : "pages/Myorder/Myorder",
             "style" :                                                                                    
             {
+                "navigationBarTextStyle": "black",
                 "navigationBarTitleText": "我的订单",
                 "enablePullDownRefresh": false,
 								"navigationStyle":"default"
@@ -114,9 +131,18 @@
             
         },
     {
+      "path": "pages/ExchangeCode/ExchangeCode",
+      "style": {
+        "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "兑换码"
+      }
+    },
+    {
       "path": "pages/Setting/Setting",
       "style": {
         "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": "设置"
       }
     },
@@ -124,13 +150,14 @@
       "path": "pages/Description/Description",
       "style": {
         "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
         "navigationBarTitleText": ""
       }
     }
     ],
   "globalStyle": {
     "navigationBarBackgroundColor": "#FFFFFF",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "uni-app",
     "navigationStyle": "custom",
     "backgroundColor": "#F8F8F8",

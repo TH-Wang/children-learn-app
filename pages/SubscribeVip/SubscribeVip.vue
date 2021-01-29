@@ -39,7 +39,7 @@
     <view class="desc">{{desc}}</view>
 
     <!-- footer -->
-    <view class="footer-button">立即开通</view>
+    <view class="footer-button" @click="handleGoOrder">立即开通</view>
   </view>
 </template>
 
@@ -71,7 +71,19 @@ export default {
       return vip ? vip.desc_rows.join('\n') : ''
     }
   },
+  methods: {
+    // 跳转到订单页面
+    async handleGoOrder () {
+      const role = this.global.rolesList.find(i => i.id === this.chooseId)
+      console.log(role)
+      uni.navigateTo({
+        url: '/pages/Order/Order?goods_id=' + role.id + '&goods_name=' + role.name +
+          "&goods_label=VIP会员&goods_charge=" + role.charge + '&goods_type=role'
+      })
+    }
+  },
   onLoad () {
+    this.chooseId = this.global.rolesList[0].id
     console.log(this.global.rolesList)
   }
 }
