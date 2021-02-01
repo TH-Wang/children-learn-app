@@ -30,6 +30,8 @@
           @click="handleSelectPopup(item.id)"
         >{{item.title}}</view>
       </view>
+      <!-- placeholder -->
+      <view :style="`height:${popupBottom}`"></view>
     </van-popup>
   </view>
 </template>
@@ -50,6 +52,10 @@ export default {
     selections: {
       type: Array,
       default: () => ([])
+    },
+    popupBottom: {
+      type: String,
+      default: '0px'
     }
   },
   data: () => ({

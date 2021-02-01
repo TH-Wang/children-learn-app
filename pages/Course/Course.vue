@@ -4,7 +4,7 @@
     <nav-bar back-arrow :placeholder="false" :scrollHeight="scrollHeight">
       <template #right>
         <collection :active="isCollect" @change="handleCollectionChange" />
-        <nav-selector />
+        <!-- <nav-selector /> -->
       </template>
     </nav-bar>
 
@@ -154,8 +154,9 @@ export default {
     },
     // 跳转到支付页面
     handleLinkOrder () {
+      console.log('跳转订单页面')
       uni.navigateTo({
-        url: '/pages/order/order?goods_id=' + this.course.id +
+        url: '/pages/Order/Order?goods_id=' + this.course.id +
           '&goods_name=' + this.course.title +
           "&goods_label=点播课程&goods_charge=" + this.course.charge + '&goods_type=vod'
       })
@@ -181,7 +182,7 @@ export default {
 
 <style lang="scss" scoped>
 .header{
-  height: 1.5rem;
+  height: 2rem;
   width: 100%;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;

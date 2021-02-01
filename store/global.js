@@ -28,6 +28,10 @@ export default {
           uni.setStorageSync(key, obj[key])
         }
       }
+    },
+    clearLocalStorage (state, type) {
+      state[type] = null
+      uni.removeStorageSync(type)
     }
   },
 

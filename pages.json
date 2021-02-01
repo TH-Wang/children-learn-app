@@ -1,6 +1,14 @@
 {
   "pages": [
     {
+      "path": "pages/SelectCategory/SelectCategory",
+      "style": {
+        "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
+		    "navigationBarTitleText": ""
+      }
+    },
+    {
       "path": "pages/Index/Index",
       "style": {
         "usingComponents": {
@@ -33,6 +41,9 @@
     },
     {
       "path": "pages/Course/Course"
+    },
+    {
+      "path": "pages/SpecialCourse/SpecialCourse"
     },
     {
       "path": "pages/CourseDetail/CourseDetail"

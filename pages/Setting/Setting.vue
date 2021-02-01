@@ -28,6 +28,7 @@
 
 <script>
 import Icon from "@/wxcomponents/vant/icon/index.vue";
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -37,11 +38,16 @@ export default {
     typeId: null
   }),
   methods: {
+    ...mapMutations(['clearToken']),
     handleLink (id) {
       uni.navigateTo({ url: `/pages/Description/Description?id=${id}` })
     },
     logout () {
-
+      this.clearToken()
+      uni.showToast({title: '已安全退出', icon: 'none'})
+      setTimeout(() => {
+        uni.navigateBack()
+      }, 300);
     }
   }
 }

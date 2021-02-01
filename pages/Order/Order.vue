@@ -128,18 +128,19 @@
       uni.setNavigationBarTitle({title})
 
 			// 当前运行环境
-			let platform = process.env.VUE_APP_PLATFORM;
-			console.log('当前运行平台', platform);
-			if (platform === 'h5') {
-				if (this.isWechat()) {
-					this.paymentScene = 'wechat';
-				} else {
-					this.paymentScene = 'h5';
-				}
-			} else if (platform === 'mp-weixin') {
-				// 微信小程序
-				this.paymentScene = 'mini';
-			}
+      this.paymentScene = 'h5'
+			// let platform = process.env.VUE_APP_PLATFORM;
+			// console.log('当前运行平台', platform);
+			// if (platform === 'h5') {
+			// 	if (this.isWechat()) {
+			// 		this.paymentScene = 'wechat';
+			// 	} else {
+			// 		this.paymentScene = 'h5';
+			// 	}
+			// } else if (platform === 'mp-weixin') {
+			// 	// 微信小程序
+			// 	this.paymentScene = 'mini';
+			// }
 		},
 		onShow() {
 			if (this.paymentScene) {
@@ -195,44 +196,44 @@
 			},
 			orderCreatedHandler(order) {
         console.log('订单信息', order)
-				// if (order.status_text === '已支付') {
-				// 	// 优惠全部抵扣
-				// 	this.$u.toast('支付成功');
-				// 	setTimeout(() => {
-				// 		uni.navigateBack();
-				// 	}, 500);
-				// } else {
-				// 	// 未支付，跳转到支付网关或者调起支付
-				// 	if (this.paymentScene === 'h5' || this.paymentScene === 'wechat') {
-				// 		let redirect = encodeURIComponent(config.app_url + 'pages/order/success');
-				// 		let indexUrl = encodeURIComponent(config.app_url);
-				// 		window.location.href =
-				// 			config.url +
-				// 			"/api/v2/order/pay/redirect?order_id=" +
-				// 			order.order_id +
-				// 			"&payment_scene=" +
-				// 			this.paymentScene +
-				// 			"&scene=" +
-				// 			this.paymentScene +
-				// 			"&payment=" +
-				// 			this.payment +
-				// 			"&token=" +
-				// 			uni.getStorageSync('token') +
-				// 			"&redirect=" +
-				// 			redirect +
-				// 			"&cancel_redirect=" +
-				// 			indexUrl;
-				// 	} else if (this.paymentScene === 'mini') {
-				// 		this.$u.api.Order.WechatMiniPay({
-				// 			openid: '',
-				// 			order_id: order.order_id
-				// 		}).then(data => {
-				// 			// 微信小程序发起支付
-				// 		}).catch(e => {
-				// 			this.$u.toast(e.data.message);
-				// 		})
-				// 	}
-				// }
+				if (order.status_text === '已支付') {
+					// 优惠全部抵扣
+					uni.showToast({title: '支付成功'});
+					setTimeout(() => {
+						uni.navigateBack();
+					}, 500);
+				} else {
+					// 未支付，跳转到支付网关或者调起支付
+					if (this.paymentScene === 'h5' || this.paymentScene === 'wechat') {
+						let redirect = encodeURIComponent(config.app_url + 'pages/order/success');
+						let indexUrl = encodeURIComponent(config.app_url);
+						window.location.href =
+							config.url +
+							"/api/v2/order/pay/redirect?order_id=" +
+							order.order_id +
+							"&payment_scene=" +
+							this.paymentScene +
+							"&scene=" +
+							this.paymentScene +
+							"&payment=" +
+							this.payment +
+							"&token=" +
+							uni.getStorageSync('token') +
+							"&redirect=" +
+							redirect +
+							"&cancel_redirect=" +
+							indexUrl;
+					} else if (this.paymentScene === 'mini') {
+						this.$u.api.Order.WechatMiniPay({
+							openid: '',
+							order_id: order.order_id
+						}).then(data => {
+							// 微信小程序发起支付
+						}).catch(e => {
+							this.$u.toast(e.data.message);
+						})
+					}
+				}
 			},
 			checkPromoCode() {
 				if (!this.promoCode) {

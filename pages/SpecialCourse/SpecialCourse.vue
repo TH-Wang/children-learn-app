@@ -37,7 +37,7 @@
     />
 
     <!-- footer -->
-    <view class="footer" v-if="false">
+    <view class="footer" v-if="hasCourse && (!isLogin || !isBuy)">
       <view
         v-if="!isLogin"
         class="footer-button"
@@ -78,10 +78,7 @@ export default {
     Collection,
     'van-empty': Empty,
     'van-image': Image
-  },
-  data: () => ({
-    keyword: '同步学'
-  })
+  }
 }
 </script>
 

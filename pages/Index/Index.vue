@@ -2,7 +2,7 @@
 	<view class="content">
     <!-- 顶部导航栏 -->
     <nav-bar color="light" :placeholder="false" :scrollHeight="scrollHeight">
-      <template #left><nav-selector v-model="category" /></template>听说读写
+      <template #left><nav-selector /></template>听说读写
     </nav-bar>
 
     <!-- banner -->
@@ -46,7 +46,8 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
+  import { isEmpty } from 'lodash'
   import NavBar from '@/components/NavBar'
   import HomeNav from '@/components/HomeNav'
   import NavSelector from '@/components/NavSelector'
@@ -80,6 +81,26 @@
 			...mapState(['global'])
     },
     methods: {
+      ...mapMutations(['setGlobalData', 'setLocalStorage']),
+      // 请求课程分类
+      async reqCategories () {
+        const res = await this.$api.getCourseCategories()
+        const categories = res.data.data
+        this.setGlobalData({ categories })
+      },
+      // 请求课程列表
+      async reqCourseList (login) {
+        const data = {}
+        if (!login) data.scene = 'recom,sub'
+        if (this.global.category) data.category = this.global.category
+        const res = await this.$api.getCoursesList(data)
+        this.setGlobalData({ courseList: res.data.data.data })
+      },
+      // 请求会员列表
+      async getVipList () {
+        const res = await this.$api.getRolesList()
+        this.setGlobalData({ rolesList: res.data.data })
+      },
       // 请求banner
       async handleReqBanner () {
         const res = await this.$api.getSliderList()
@@ -89,14 +110,22 @@
         console.log(e)
       }
     },
-    onLoad () {
+    onLoad: async function () {
       try {
         this.handleReqBanner()
+        this.getVipList()
+        if (isEmpty(this.global.categories)) await this.reqCategories()
+        if (isEmpty(this.global.courseList)) this.reqCourseList()
       } catch (error) {
         uni.showModal({
           title: '信息',
           content: error
         })
+      }
+    },
+    watch: {
+      'global.category': function (newVal) {
+        this.reqCourseList()
       }
     }
 	}
@@ -104,7 +133,7 @@
 
 <style lang="scss">
 .banner{
-  height: 2rem;
+  height: 2.4rem;
   background-color: #FB544F;
 
   .swiper{

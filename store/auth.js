@@ -9,6 +9,10 @@ export default {
     setToken (state, data) {
       state.token = data
       uni.setStorageSync('token', data)
+    },
+    clearToken (state) {
+      state.token = null
+      uni.removeStorageSync('token')
     }
   },
 
