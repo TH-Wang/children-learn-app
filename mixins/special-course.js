@@ -95,8 +95,13 @@ export default {
       }
     },
     // 跳转详情页面
-    async handleLink (id) {
-      if (!this.isLogin || !this.isBuy) return
+    async handleLink (record) {
+      if (!this.isLogin) return
+      if (record.charge > 0 && !this.isBuy) {
+        uni.showToast({ title: '购买课程后即可观看', icon: 'none' })
+        return
+      }
+      const id = record.id
       uni.navigateTo({
         url: `/pages/CourseDetail/CourseDetail?id=${id}`
       })

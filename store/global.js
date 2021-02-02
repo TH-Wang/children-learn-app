@@ -47,8 +47,15 @@ export default {
       )
       return result ? result.id : null
     },
+    // 是否是vip
+    isVip (state) {
+      if (!state.userInfo) return false
+      if (!state.userInfo.role) return false
+      return true
+    },
     // vip身份
     vipType (state) {
+      if (!state.userInfo) return '普通用户'
       const role = state.rolesList.find(i => i.id === state.userInfo.role_id)
       return role ? role.name : '普通用户'
     }

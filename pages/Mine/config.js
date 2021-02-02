@@ -12,6 +12,6 @@ export const list = [
   ['', getImage('my-class.png'), '个人资料'],
   ['/pages/MyIntegral/MyIntegral', getImage('my-integral.png'), '我的积分'],
   ['/pages/MyInvite/MyInvite', getImage('my-invitation.png'), '我的邀请'],
-  ['', getImage('my-invitation.png'), '我的推广'],
+  ['/pages/MyShare/MyShare', getImage('my-invitation.png'), '我的推广'],
   ['/pages/ExchangeCode/ExchangeCode', getImage('my-invitation.png'), '兑换码']
 ]

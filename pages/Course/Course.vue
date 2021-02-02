@@ -33,7 +33,7 @@
       :listData="item||{}"
       :cover="cover"
       :key="item.id"
-      @click="handleLink(item.id)"
+      @click="handleLink(item)"
     />
 
     <!-- footer -->
@@ -93,7 +93,7 @@ export default {
     // 当前章节的视频列表
     commonList: [],
     // 是否购买
-    isBuy: false,
+    isBuy: true,
     // 是否收藏
     isCollect: false,
     // 课程封面
@@ -101,7 +101,7 @@ export default {
   }),
   computed: {
     ...mapState(['global']),
-    ...mapGetters(['courseId', 'isLogin']),
+    ...mapGetters(['courseId', 'isLogin', 'isVip']),
     videosIsEmpty () {
       return Object.keys(this.videos).length === 0
     }
@@ -142,8 +142,13 @@ export default {
       }
     },
     // 跳转详情页面
-    handleLink (id) {
-      if (!this.isLogin || !this.isBuy) return
+    handleLink (record) {
+      if (!this.isLogin) return
+      if (record.charge > 0 && !this.isBuy) {
+        uni.showToast({ title: '购买课程后即可观看', icon: 'none' })
+        return
+      }
+      const id = record.id
       uni.navigateTo({
         url: `/pages/CourseDetail/CourseDetail?id=${id}`
       })

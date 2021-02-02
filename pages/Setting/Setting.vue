@@ -38,12 +38,13 @@ export default {
     typeId: null
   }),
   methods: {
-    ...mapMutations(['clearToken']),
+    ...mapMutations(['clearToken', 'setGlobalData']),
     handleLink (id) {
       uni.navigateTo({ url: `/pages/Description/Description?id=${id}` })
     },
     logout () {
       this.clearToken()
+      this.setGlobalData({ userInfo: null })
       uni.showToast({title: '已安全退出', icon: 'none'})
       setTimeout(() => {
         uni.navigateBack()

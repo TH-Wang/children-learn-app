@@ -33,7 +33,7 @@
       :listData="item||{}"
       :cover="cover"
       :key="item.id"
-      @click="handleLink(item.id)"
+      @click="handleLink(item)"
     />
 
     <!-- footer -->

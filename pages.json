@@ -96,6 +96,14 @@
       "path": "pages/MyInvite/MyInvite"
     },
     {
+      "path": "pages/MyShare/MyShare",
+      "style": {
+        "navigationStyle": "default",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "我的推广"
+      }
+    },
+    {
       "path": "pages/Myclass/Myclass",
       "style": {
         "navigationStyle": "default",
@@ -165,7 +173,7 @@
         "navigationBarTitleText": ""
       }
     }
-    ],
+  ],
   "globalStyle": {
     "navigationBarBackgroundColor": "#FFFFFF",
     "navigationBarTextStyle": "white",

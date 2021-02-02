@@ -71,7 +71,7 @@ export default {
       // 如果有进度信息
       this.curProgress = data.video_watched_progress[this.id]
       // 当前视频的观看时长
-      this.curDuration = this.curProgress.watch_seconds
+      this.curDuration = this.curProgress ? this.curProgress.watch_seconds : 0
       // 请求第一个视频的播放地址
       this.handleReqResource()
     },

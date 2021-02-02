@@ -11,7 +11,9 @@ export default {
 	msgAllRead,
   getMemberOrders,
   inviteUsers,
-  promoCode
+  promoCode,
+  inviteBalance,
+  inviteBalanceRecrods
   // getMemberMistake
 }
 
@@ -62,6 +64,22 @@ function msgAllRead () {
 // 我的邀请用户
 function inviteUsers () {
   return http.get('/member/inviteUsers', {
+    page: 1,
+    page_size: 100
+  })
+}
+
+// 获取邀请余额金额
+async function inviteBalance () {
+  const res = await inviteBalanceRecrods()
+  const data = res.data.data
+  if (!data || data.length <= 0) return 0
+  else return data.reduce((p, i) => p + parseInt(i.total), 0)
+}
+
+// 邀请余额明细
+function inviteBalanceRecrods () {
+  return http.get('/member/inviteBalanceRecrods', {
     page: 1,
     page_size: 100
   })

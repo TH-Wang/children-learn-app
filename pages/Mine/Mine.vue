@@ -96,7 +96,7 @@ export default {
   onLoad() {
     if (this.isLogin) {
 		  this.getMemberDetail();
-    } 
+    }
   },
   onShow () {
     if (this.isLogin && isEmpty(this.global.userInfo)) {
