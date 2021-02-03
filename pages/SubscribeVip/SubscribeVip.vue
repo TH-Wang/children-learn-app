@@ -83,8 +83,8 @@ export default {
     }
   },
   onLoad () {
-    this.chooseId = this.global.rolesList[0].id
     console.log(this.global.rolesList)
+    this.chooseId = this.global.rolesList[0].id
   }
 }
 </script>

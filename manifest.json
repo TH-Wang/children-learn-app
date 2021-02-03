@@ -18,7 +18,8 @@
         },
         /* 模块配置 */
         "modules" : {
-            "VideoPlayer" : {}
+            "VideoPlayer" : {},
+            "Payment" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -48,7 +49,20 @@
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "payment" : {
+                    "alipay" : {
+                        "__platform__" : [ "ios", "android" ]
+                    }
+                }
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "F:/mywork/少儿学习app/logo.png",
+                    "xhdpi" : "F:/mywork/少儿学习app/logo.png",
+                    "xxhdpi" : "F:/mywork/少儿学习app/logo.png",
+                    "xxxhdpi" : "F:/mywork/少儿学习app/logo.png"
+                }
             }
         }
     },

@@ -75,6 +75,8 @@
 				立即支付
 			</view>
 		</view>
+
+    <web-view v-if="showPayWebview" :src="webviewSrc"></web-view>
 	</view>
 </template>
 
@@ -103,7 +105,9 @@
 				promoCodeModel: null,
 				loading: false,
 				paymentScene: "",
-				// config: config
+        // config: config,
+        showPayWebview: false,
+        webviewSrc: ''
 			}
 		},
 		computed: {
@@ -144,11 +148,13 @@
 		},
 		onShow() {
 			if (this.paymentScene) {
+        uni.showLoading({title: '请稍后'})
 				this.$api.getPayments(this.paymentScene).then(res => {
 					this.payments = res.data.data;
 					if (res.data.data.length > 0) {
 						this.payment = this.payments[0].sign;
-					}
+          }
+          uni.hideLoading()
 				})
 			}
 		},
@@ -188,12 +194,48 @@
         if (this.goods.type === 'tg') data.gid = this.goods.tgGid
         // 发起请求
         const res = await this.$api[api](data)
+        // this.requestPayment(res.data.data.order_id)
         if (res.data.code === 0) {
-          this.orderCreatedHandler(res.data)
+          const orderId = res.data.data.order_id
+          this.h5Payment(orderId)
         } else {
           uni.showToast({title: res.data.message, icon: 'none'});
         }
-			},
+      },
+      // h5跳转调起支付
+      h5Payment (orderId) {
+        const payment = this.payment
+        this.showPayWebview = true
+        this.webviewSrc = 'https://www.tsdxedu.com' +
+          "/api/v2/order/pay/redirect?order_id=" +
+          orderId +
+          "&payment_scene=h5" +
+          "&scene=h5" +
+          "&payment=" + payment +
+          "&token=" + uni.getStorageSync('token')
+      },
+      // api调起支付
+      requestPayment (orderId) {
+        const payment = this.payment
+        uni.requestPayment({
+          provider: payment,
+          orderInfo: orderId,
+          success (res) {
+            console.log(res)
+            uni.showToast({
+              title: '成功',
+              content: JSON.stringify(res)
+            })
+          },
+          fail (err) {
+            console.log(err)
+            uni.showToast({
+              title: '失败',
+              content: JSON.stringify(err)
+            })
+          }
+        })
+      },
 			orderCreatedHandler(order) {
         console.log('订单信息', order)
 				if (order.status_text === '已支付') {

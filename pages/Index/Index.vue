@@ -24,7 +24,7 @@
 		
 		<!-- 日历 -->
     <view class="calendar">
-      <uni-calendar 
+      <uni-calendar
         :insert="true"
         @change="handleCalendarChange"
       />
